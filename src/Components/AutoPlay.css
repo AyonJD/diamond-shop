@@ -1,0 +1,14 @@
+
+    @media only screen and (max-width: 768px){
+        .autoplay_wrapper{
+            height: 300px !important;
+            overflow: hidden !important;
+        }
+        .image_div{
+            height: 300px !important;
+        }
+        .image_div img{
+            height: 300px !important;
+        }
+        
+    }
