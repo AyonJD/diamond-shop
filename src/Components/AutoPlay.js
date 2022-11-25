@@ -11,7 +11,7 @@ export default class AutoPlay extends Component {
 
   render() {
     const settings = {
-      dots: true,
+      dots: false,
       infinite: true,
       slidesToScroll: 1,
       autoplay: true,
