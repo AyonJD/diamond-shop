@@ -1,26 +1,32 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { MdGraphicEq } from "react-icons/md";
+import { dataContext } from "../../App";
 
 function Navigation() {
   /* Close the drawer when the user clicks outside of it */
   const [openDrawer, toggleDrawer] = useState(false);
   const drawerRef = useRef(null);
   const navigate = useNavigate();
+  const { token, setToken } = useContext(dataContext);
 
   useEffect(() => {
     const closeDrawer = (event) => {
       if (drawerRef.current && drawerRef.current.contains(event.target)) {
         return;
       }
-
       toggleDrawer(false);
     };
 
     document.addEventListener("mousedown", closeDrawer);
     return () => document.removeEventListener("mousedown", closeDrawer);
   }, []);
+
+  const handleLogOut = () => {
+    setToken(null);
+    localStorage.removeItem("access_token");
+  };
 
   return (
     <Navbar.Wrapper>
@@ -65,7 +71,14 @@ function Navigation() {
 
       <div className="flex items-center">
         {/* Login Logout button */}
-        <button onClick={()=>navigate('/login')} className="mr-4 text-white border-blue-600 border px-4 py-1 rounded-md bg-blue-600">Login</button>
+        {
+          token ? (
+            <button onClick={handleLogOut} className="mr-4 text-white border-blue-600 border px-4 py-1 rounded-md bg-blue-600">Log Out</button>
+          ) : (
+            <button onClick={()=>navigate('/login')} className="mr-4 text-white border-blue-600 border px-4 py-1 rounded-md bg-blue-600">Login</button>
+          )
+        }
+        
           <HamburgerButton.Wrapper onClick={() => toggleDrawer(true)}>
         <HamburgerButton.Lines />
           </HamburgerButton.Wrapper>

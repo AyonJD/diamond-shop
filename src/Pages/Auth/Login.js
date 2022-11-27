@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { IoIosMail } from 'react-icons/io';
 import { BsFillLockFill } from 'react-icons/bs';
 import freeFire from '../../Asset/three.png';
@@ -8,9 +8,10 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
+import { dataContext } from '../../App';
 
 const Login = () => {
-    const [token, setToken] = React.useState(localStorage.getItem('access_token'))
+    const {token, setToken} = useContext(dataContext)
     const navigate = useNavigate();
     const { register, formState: { errors }, handleSubmit, trigger, reset } = useForm();
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
@@ -41,7 +42,7 @@ const Login = () => {
             body: JSON.stringify(dataToInsurt)
         });
         const result = await responseFromDB.json();
-        console.log(result);
+        
         if (result.success) {
             toast.success('Login successfully');
             setToken(result.token);
