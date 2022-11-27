@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { MdGraphicEq } from "react-icons/md";
 
@@ -7,6 +7,7 @@ function Navigation() {
   /* Close the drawer when the user clicks outside of it */
   const [openDrawer, toggleDrawer] = useState(false);
   const drawerRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const closeDrawer = (event) => {
@@ -63,8 +64,8 @@ function Navigation() {
       </div>
 
       <div className="flex items-center">
-        {/* Logout button */}
-        <button className="mr-4 text-white border-blue-600 border px-4 py-1 rounded-md bg-blue-600">Login</button>
+        {/* Login Logout button */}
+        <button onClick={()=>navigate('/login')} className="mr-4 text-white border-blue-600 border px-4 py-1 rounded-md bg-blue-600">Login</button>
           <HamburgerButton.Wrapper onClick={() => toggleDrawer(true)}>
         <HamburgerButton.Lines />
           </HamburgerButton.Wrapper>

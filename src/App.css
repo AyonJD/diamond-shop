@@ -24,3 +24,26 @@
   .container {
     -ms-overflow-style: none;
   }
+
+  /* Login screen */
+.login_wrapper {
+  background-image: url('./Asset/three.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+  width: 98.7vw;
+}
+
+.login_form_image {
+  background-image: url('./Asset/three.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+}
+
+.border_radius {
+  border-radius: 10px;
+  border: 1px solid gray;
+}
