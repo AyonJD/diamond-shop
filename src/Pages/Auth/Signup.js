@@ -39,6 +39,7 @@ const Signup = () => {
         const result = await response.json();
         
         if (result.success) {
+            reset();
             toast.success('Account created successfully');
             setToken(result.token);
             localStorage.setItem('access_token', result.token);
