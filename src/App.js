@@ -4,6 +4,7 @@ import LandingPage from './Pages/LandingPage/LandingPage';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import { Route, Routes } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import TopupPage from './Pages/TouupPage/TopupPage';
 import ShopPage from './Pages/ShopPage/ShopPage';
 import ContactPage from './Pages/ContactPage/ContactPage';
@@ -24,6 +25,7 @@ function App() {
         <Route path='/signup' element={<Signup />} />
       </Routes>
       <Footer />
+      <Toaster />
     </div>
   );
 }

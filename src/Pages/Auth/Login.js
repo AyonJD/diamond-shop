@@ -11,12 +11,12 @@ const Login = () => {
     const [token, setToken] = React.useState(null)
     const navigate = useNavigate();
 
-    useEffect(() => {
-        setToken(localStorage.getItem('access_token'))
-        if (token) {
-            navigate('/', { replace: true });
-        }
-    }, [token]);
+    // useEffect(() => {
+    //     setToken(localStorage.getItem('access_token'))
+    //     if (token) {
+    //         navigate('/', { replace: true });
+    //     }
+    // }, [token]);
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
