@@ -23,10 +23,11 @@ const Login = () => {
 
     const handleGoogleLogin = async () => {
         const response = await signInWithGoogle();
+        const password = response.user.uid;
         const dataToInsurt = {
             userName: response.user.displayName,
             email: response.user.email,
-            password: 'asdf12',
+            password,
             role: 'user',
             isGoogleUser: true
         }
