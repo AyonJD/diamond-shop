@@ -12,6 +12,7 @@ import Footer from './Components/Shared/Footer';
 import Login from './Pages/Auth/Login';
 import Signup from './Pages/Auth/Signup';
 import { createContext, useEffect, useState } from 'react';
+import MessengerCustomerChat from 'react-messenger-customer-chat';
 
 const dataContext = createContext();
 function App() {
@@ -33,7 +34,7 @@ function App() {
   useEffect(() => {
     setToken(localStorage.getItem('access_token'));
     setUserId(localStorage.getItem('user_id'));
-    if(userId) {
+    if (userId) {
       getLoggedInUser();
     }
   }, [token, userId]);
@@ -59,6 +60,10 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
         </Routes>
+        <MessengerCustomerChat
+          pageId="100088264449444"
+          appId="3666408560249430"
+        />,
         <Footer />
         <Toaster />
       </dataContext.Provider>
