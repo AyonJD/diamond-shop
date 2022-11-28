@@ -22,7 +22,7 @@ function App() {
 
   const getLoggedInUser = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/v1/auth/user/${userId}`)
+      const res = await fetch(`https://sourav-shop-server.up.railway.app/api/v1/auth/user/${userId}`)
 
       const parseData = await res.json();
       setLoggedInUser(parseData);
@@ -61,7 +61,7 @@ function App() {
           <Route path='/signup' element={<Signup />} />
         </Routes>
         <MessengerCustomerChat
-          pageId="100088264449444"
+          pageId="107411695538516"
           appId="664455595334952"
         />,
         <Footer />

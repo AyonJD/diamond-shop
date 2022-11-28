@@ -10,7 +10,7 @@ import toast from 'react-hot-toast';
 import { dataContext } from '../../App';
 
 const Signup = () => {
-    const {token, setToken} = useContext(dataContext)
+    const { token, setToken } = useContext(dataContext)
     const navigate = useNavigate();
     const { register, formState: { errors }, handleSubmit, trigger, reset } = useForm();
     const location = useLocation();
@@ -29,7 +29,7 @@ const Signup = () => {
             userName: data.userName,
             role: 'user'
         }
-        const url = 'http://localhost:5000/api/v1/auth/user/signup';
+        const url = 'https://sourav-shop-server.up.railway.app/api/v1/auth/user/signup';
         const response = await fetch(url, {
             method: 'POST',
             headers: {
