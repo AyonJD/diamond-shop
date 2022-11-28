@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { MdGraphicEq } from "react-icons/md";
 import { dataContext } from "../../App";
+import NavigationDropdown from "./NavigationDropdown";
 
 function Navigation() {
   /* Close the drawer when the user clicks outside of it */
@@ -29,59 +30,66 @@ function Navigation() {
   };
 
   return (
-    <Navbar.Wrapper>
-          <div className="flex justify-between items-center mt-[-10px]">
-          <Navbar.Logo>
-        <Link className="link" to="/">
-          <p className="logo">
-            <span style={{ fontWeight: "bold" }}>
-              <MdGraphicEq className="inline-block"/> SS
-            </span>
-            <span
-              style={{
-                fontStyle: "italic",
-                fontFamily: "PlayFair Display, sans-serif",
-                color: "#37BC96"
-              }}
-            >
+    <Navbar.Wrapper className="">
+      <div className="flex justify-between items-center mt-[-10px]">
+        <Navbar.Logo>
+          <Link className="link" to="/">
+            <p className="logo">
+              <span style={{ fontWeight: "bold" }}>
+                <MdGraphicEq className="inline-block" /> SS
+              </span>
+              <span
+                style={{
+                  fontStyle: "italic",
+                  fontFamily: "PlayFair Display, sans-serif",
+                  color: "#37BC96"
+                }}
+              >
+                Shop
+              </span>
+            </p>
+          </Link>
+        </Navbar.Logo>
+
+        <Navbar.Items ref={drawerRef} openDrawer={openDrawer}>
+          <Navbar.Item>
+            <Link className="link" to="/topup">
+              Top Up
+            </Link>
+          </Navbar.Item>
+          <Navbar.Item>
+            <Link className="link" to="/shop">
               Shop
-            </span>
-          </p>
-        </Link>
-          </Navbar.Logo>
-          
-          <Navbar.Items ref={drawerRef} openDrawer={openDrawer}>
-        <Navbar.Item>
-          <Link className="link" to="/topup">
-            Top Up
-          </Link>
-        </Navbar.Item>
-        <Navbar.Item>
-          <Link className="link" to="/shop">
-            Shop
-          </Link>
-        </Navbar.Item>
-        <Navbar.Item>
-          <Link className="link" to="/contact">
-            Contact Us
-          </Link>
-        </Navbar.Item>
-          </Navbar.Items>
+            </Link>
+          </Navbar.Item>
+          <Navbar.Item>
+            <Link className="link" to="/contact">
+              Contact Us
+            </Link>
+          </Navbar.Item>
+          {
+            token && (
+              <Navbar.Item>
+                <NavigationDropdown handleScreen="exclude_sm_show"/>
+              </Navbar.Item>
+            )
+          }
+        </Navbar.Items>
+
+
       </div>
 
       <div className="flex items-center">
         {/* Login Logout button */}
-        {
-          token ? (
-            <button onClick={handleLogOut} className="mr-4 text-white border-blue-600 border px-4 py-1 rounded-md bg-blue-600">Log Out</button>
-          ) : (
-            <button onClick={()=>navigate('/login')} className="mr-4 text-white border-blue-600 border px-4 py-1 rounded-md bg-blue-600">Login</button>
-          )
-        }
-        
-          <HamburgerButton.Wrapper onClick={() => toggleDrawer(true)}>
-        <HamburgerButton.Lines />
-          </HamburgerButton.Wrapper>
+
+        {token && <NavigationDropdown handleScreen="include_sm_show"/>}
+
+        {!token && <button onClick={() => navigate('/login')} className="mr-4 text-white border-blue-600 border px-4 py-1 rounded-md bg-blue-600">Login</button>}
+
+
+        <HamburgerButton.Wrapper onClick={() => toggleDrawer(true)}>
+          <HamburgerButton.Lines />
+        </HamburgerButton.Wrapper>
       </div>
     </Navbar.Wrapper>
   );
@@ -116,7 +124,7 @@ const Navbar = {
     }
   `,
 
-    Logo: styled.h1`
+  Logo: styled.h1`
     font-size: 1.5rem;
     position: relative;
     top: 5px;
@@ -143,7 +151,7 @@ const Navbar = {
       transition: 0.2s ease-out;
 
       transform: ${({ openDrawer }) =>
-        openDrawer ? `translateX(0)` : `translateX(100%)`};
+      openDrawer ? `translateX(0)` : `translateX(100%)`};
     }
   `,
 
