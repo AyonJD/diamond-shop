@@ -19,20 +19,35 @@ function App() {
   const [token, setToken] = useState(null);
   const [userId, setUserId] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [services, setServices] = useState([]);
 
   const getLoggedInUser = async () => {
     try {
       const url = `https://sourav-shop-server.up.railway.app/api/v1/auth/user/${userId}`
-      console.log(url)
       const res = await fetch(url)
 
       const parseData = await res.json();
-      console.log(parseData);
       setLoggedInUser(parseData);
     } catch (err) {
       console.error(err.message);
     }
   }
+
+  const getAllService = async () => {
+    try {
+      const res = await fetch("https://sourav-shop-server.up.railway.app/api/v1/auth/service");
+      const parseData = await res.json();
+      setServices(parseData);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  useEffect(() => {
+    getAllService();
+  }, [])
+
+  console.log(services);
 
 
   useEffect(() => {
@@ -49,7 +64,8 @@ function App() {
     setToken,
     userId,
     setUserId,
-    loggedInUser
+    loggedInUser,
+    services
   }
 
   return (
