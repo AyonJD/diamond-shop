@@ -22,14 +22,18 @@ function App() {
 
   const getLoggedInUser = async () => {
     try {
-      const res = await fetch(`https://sourav-shop-server.up.railway.app/api/v1/auth/user/${userId}`)
+      const url = `https://sourav-shop-server.up.railway.app/api/v1/auth/user/${userId}`
+      console.log(url)
+      const res = await fetch(url)
 
       const parseData = await res.json();
+      console.log(parseData);
       setLoggedInUser(parseData);
     } catch (err) {
       console.error(err.message);
     }
   }
+
 
   useEffect(() => {
     setToken(localStorage.getItem('access_token'));

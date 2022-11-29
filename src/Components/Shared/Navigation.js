@@ -52,6 +52,14 @@ function Navigation() {
         </Navbar.Logo>
 
         <Navbar.Items ref={drawerRef} openDrawer={openDrawer}>
+          {
+            token && (
+              <Navbar.Item>
+                <NavigationDropdown handleScreen="exclude_sm_show" />
+              </Navbar.Item>
+            )
+          }
+
           <Navbar.Item>
             <Link className="link" to="/topup">
               Top Up
@@ -67,22 +75,14 @@ function Navigation() {
               Contact Us
             </Link>
           </Navbar.Item>
-          {
-            token && (
-              <Navbar.Item>
-                <NavigationDropdown handleScreen="exclude_sm_show"/>
-              </Navbar.Item>
-            )
-          }
+
         </Navbar.Items>
-
-
       </div>
 
       <div className="flex items-center">
         {/* Login Logout button */}
 
-        {token && <NavigationDropdown handleScreen="include_sm_show"/>}
+        {token && <NavigationDropdown handleScreen="include_sm_show" />}
 
         {!token && <button onClick={() => navigate('/login')} className="mr-4 text-white border-blue-600 border px-4 py-1 rounded-md bg-blue-600">Login</button>}
 
