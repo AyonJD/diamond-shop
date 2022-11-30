@@ -13,6 +13,7 @@ import Login from './Pages/Auth/Login';
 import Signup from './Pages/Auth/Signup';
 import { createContext, useEffect, useState } from 'react';
 import MessengerCustomerChat from 'react-messenger-customer-chat';
+import TopupDetails from './Pages/TouupPage/TopupDetails';
 
 const dataContext = createContext();
 function App() {
@@ -47,8 +48,6 @@ function App() {
     getAllService();
   }, [])
 
-  console.log(services);
-
 
   useEffect(() => {
     setToken(localStorage.getItem('access_token'));
@@ -75,6 +74,7 @@ function App() {
         <Routes>
           <Route path='/' element={<LandingPage />} />
           <Route path='/topup' element={<TopupPage />} />
+          <Route path='/topup/:id' element={<TopupDetails />} />
           <Route path='/shop' element={<ShopPage />} />
           <Route path='/contact' element={<ContactPage />} />
           <Route path='/login' element={<Login />} />
