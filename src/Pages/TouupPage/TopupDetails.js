@@ -10,6 +10,8 @@ const TopupDetails = () => {
     const [openPopup, setOpenPopup] = useState(true);
     const inCode = '6385ca463baa4f1535334a07'
     const { setOpenWelcomePopup } = useContext(dataContext);
+    const [selectedPackage, setSelectedPackage] = useState({});
+    const [currentIndex, setCurrentIndex] = useState(undefined);
 
     const getService = async () => {
         try {
@@ -54,11 +56,25 @@ const TopupDetails = () => {
                                 {
                                     service?.result?.package?.map((item, index) => {
                                         return (
-                                            <PackageCard key={index} item={item} />
+                                            <PackageCard
+                                                key={index}
+                                                index={index}
+                                                item={item}
+                                                setSelectedPackage={setSelectedPackage}
+                                                setCurrentIndex={setCurrentIndex}
+                                                currentIndex={currentIndex}
+                                            />
                                         )
                                     })
                                 }
                             </div>
+                        </div>
+                        <div className="border mt-10 py-4 rounded-md bg-white">
+                            <div className="border-b pb-3 px-4">
+                                <h1 className='inline-block text-2xl font-bold text-white bg-[#37BC96] px-[10px] align-middle rounded-full'>3</h1>
+                                <h1 className='inline-block ml-2 font-semibold'>PAYMENT</h1>
+                            </div>
+                            <h1>You will need { } to parse the package</h1>
                         </div>
                     </div>
                 ) : (
