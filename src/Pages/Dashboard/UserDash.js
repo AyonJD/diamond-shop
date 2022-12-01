@@ -6,7 +6,7 @@ import { AiOutlineTransaction } from "react-icons/ai";
 import controller from '../../Asset/control.png'
 import { dataContext } from "../../App";
 const UserDash = () => {
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     const [renderItem, setRenderItem] = useState(1);
     const { loggedInUser } = useContext(dataContext)
     console.log(loggedInUser);
