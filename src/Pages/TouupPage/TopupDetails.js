@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useContext, useEffect, useState, useId } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { dataContext } from '../../App';
 import PackageCard from '../../Components/Shared/PackageCard';
 import Popup from '../../Components/Shared/Popup/Popup';
@@ -9,9 +9,11 @@ const TopupDetails = () => {
     const [service, setService] = useState({});
     const [openPopup, setOpenPopup] = useState(true);
     const inCode = '6385ca463baa4f1535334a07'
-    const { setOpenWelcomePopup } = useContext(dataContext);
-    const [selectedPackage, setSelectedPackage] = useState({});
+    const { setOpenWelcomePopup, selectedPackage, setSelectedService } = useContext(dataContext);
     const [currentIndex, setCurrentIndex] = useState(undefined);
+    const [paymentId, setPaymentId] = useState(undefined);
+    const navigate = useNavigate();
+    const [playerId, setPlayerId] = useState('');
 
     const getService = async () => {
         try {
@@ -19,6 +21,7 @@ const TopupDetails = () => {
             const res = await fetch(url);
             const parseData = await res.json();
             setService(parseData);
+            setSelectedService(parseData);
         } catch (err) {
             console.error(err.message);
         }
@@ -36,6 +39,14 @@ const TopupDetails = () => {
         return true;
     }
 
+    const generatePaymentId = async () => {
+        const randomString = Math.random().toString(36).substring(2, 4);
+        const paymentId = randomString + Date.now();
+        setPaymentId(paymentId);
+        localStorage.setItem('playerId', playerId);
+        navigate(`/add-wallet/${id}/${paymentId}`);
+    }
+
     return (
         <div>
             {openPopup && <Popup setOpenPopup={setOpenPopup} popupData={service?.result?.popupData} />}
@@ -51,7 +62,7 @@ const TopupDetails = () => {
                             <form>
                                 <div className="flex flex-col px-4">
                                     <label className='mt-4'>Player ID</label>
-                                    <input className='border-[#37BC96] outline-0 border rounded-md px-2 py-2 mt-1' type="text" placeholder='Player ID' />
+                                    <input onChange={(e) => setPlayerId(e.target.value)} className='border-[#37BC96] outline-0 border rounded-md px-2 py-2 mt-1' type="text" placeholder='Player ID' />
                                 </div>
                             </form>
                         </div>
@@ -68,7 +79,6 @@ const TopupDetails = () => {
                                                 key={index}
                                                 index={index}
                                                 item={item}
-                                                setSelectedPackage={setSelectedPackage}
                                                 setCurrentIndex={setCurrentIndex}
                                                 currentIndex={currentIndex}
                                             />
@@ -85,6 +95,7 @@ const TopupDetails = () => {
                             <h1 className='my-2 px-4 font-medium'>You will need BDT {!checkSelectedPackage() ? '0' : selectedPackage?.price} to parse the package</h1>
                             <button
                                 disabled={!checkSelectedPackage()}
+                                onClick={generatePaymentId}
                                 className={`ml-4  text-white border border-transparent font-semibold px-10 py-2 rounded-md  ${!checkSelectedPackage() ? 'bg-slate-300' : 'bg-[#37BC96] hover:bg-transparent hover:border-[#37BC96] hover:border hover:text-[#37BC96] delay-100 transition-all ease-out'}`}>Buy Now</button>
                         </div>
                     </div>
@@ -117,7 +128,6 @@ const TopupDetails = () => {
                                                 key={index}
                                                 index={index}
                                                 item={item}
-                                                setSelectedPackage={setSelectedPackage}
                                                 setCurrentIndex={setCurrentIndex}
                                                 currentIndex={currentIndex}
                                             />
@@ -133,6 +143,7 @@ const TopupDetails = () => {
                                 <h1 className='my-2 px-4 font-medium'>You will need BDT {!checkSelectedPackage() ? '0' : selectedPackage?.price} to parse the package</h1>
                                 <button
                                     disabled={!checkSelectedPackage()}
+                                    onClick={generatePaymentId}
                                     className={`ml-4  text-white border border-transparent font-semibold px-10 py-2 rounded-md  ${!checkSelectedPackage() ? 'bg-slate-300' : 'bg-[#37BC96] hover:bg-transparent hover:border-[#37BC96] hover:border hover:text-[#37BC96] delay-100 transition-all ease-out'}`}>Buy Now</button>
                             </div>
                         </div>

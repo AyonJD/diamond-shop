@@ -16,6 +16,8 @@ import MessengerCustomerChat from 'react-messenger-customer-chat';
 import TopupDetails from './Pages/TouupPage/TopupDetails';
 import Popup from './Components/Shared/Popup/Popup';
 import { POPUP_DATA } from './Utils/Constant';
+import PaymentMethod from './Pages/TouupPage/PaymentMethod';
+import SelectPaymentMethodPopup from './Pages/TouupPage/SelectPaymentMethodPopup';
 
 const dataContext = createContext();
 function App() {
@@ -24,6 +26,8 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [services, setServices] = useState([]);
   const [openWelcomePopup, setOpenWelcomePopup] = useState(true);
+  const [selectedPackage, setSelectedPackage] = useState({});
+  const [selectedService, setSelectedService] = useState({});
 
   const getLoggedInUser = async () => {
     try {
@@ -68,7 +72,11 @@ function App() {
     setUserId,
     loggedInUser,
     services,
-    setOpenWelcomePopup
+    setOpenWelcomePopup,
+    selectedPackage,
+    setSelectedPackage,
+    selectedService,
+    setSelectedService
   }
 
   return (
@@ -80,6 +88,8 @@ function App() {
           <Route path='/' element={<LandingPage />} />
           <Route path='/topup' element={<TopupPage />} />
           <Route path='/topup/:id' element={<TopupDetails />} />
+          <Route path='/add-wallet/:serviceId/:id' element={<PaymentMethod />} />
+          <Route path='/payment/:id' element={<SelectPaymentMethodPopup />} />
           <Route path='/shop' element={<ShopPage />} />
           <Route path='/contact' element={<ContactPage />} />
           <Route path='/login' element={<Login />} />
