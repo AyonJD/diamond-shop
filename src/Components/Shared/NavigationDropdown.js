@@ -15,6 +15,7 @@ const NavigationDropdown = ({ handleScreen }) => {
     const handleLogout = () => {
         localStorage.removeItem('access_token');
         localStorage.removeItem('user_id');
+        handleDropDown();
         navigate('/login');
         toast.success('Logged out successfully');
 
@@ -54,8 +55,9 @@ const NavigationDropdown = ({ handleScreen }) => {
             >
                 <ul className=" z-10 w-44 bg-white rounded divide-y divide-gray-300 shadow ">
                     <li
+                        onClick={handleDropDown}
                     >
-                        <Link to="#" className="block py-2 px-4 hover:bg-gray-100">
+                        <Link to="/dashboard" className="block py-2 px-4 hover:bg-gray-100">
                             Dashboard
                         </Link>
                     </li>

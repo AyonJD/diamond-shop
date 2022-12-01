@@ -84,7 +84,7 @@ function Navigation() {
 
         {token && <NavigationDropdown handleScreen="include_sm_show" />}
 
-        {!token && <button onClick={() => navigate('/login')} className="mr-4 text-white border-blue-600 border px-4 py-1 rounded-md bg-blue-600">Login</button>}
+        {!token && <button onClick={() => navigate('/login')} className="mr-4 text-white border-[#37BC96] border px-4 py-1 rounded-md bg-[#37BC96]">Login</button>}
 
 
         <HamburgerButton.Wrapper onClick={() => toggleDrawer(true)}>

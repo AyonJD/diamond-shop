@@ -1,0 +1,122 @@
+import { useContext, useState } from "react";
+import { MdGraphicEq } from "react-icons/md";
+import { MdAccountBox } from "react-icons/md";
+import { RiSecurePaymentFill } from "react-icons/ri";
+import { AiOutlineTransaction } from "react-icons/ai";
+import controller from '../../Asset/control.png'
+import { dataContext } from "../../App";
+const UserDash = () => {
+    const [open, setOpen] = useState(true);
+    const [renderItem, setRenderItem] = useState(1);
+    const { loggedInUser } = useContext(dataContext)
+    console.log(loggedInUser);
+    const Menus = [
+        { title: "My Account", src: <MdAccountBox className="h-6 w-6" />, id: 1 },
+        { title: "My Order", src: <RiSecurePaymentFill className="h-6 w-6" />, id: 2 },
+        { title: "My Transaction ", src: <AiOutlineTransaction className="h-6 w-6" />, id: 3 },
+    ];
+
+    return (
+        <>
+            <div className="flex">
+                <div
+                    className={` ${open ? "w-72" : "w-20 "
+                        } bg-[#000D50] h-screen p-5  pt-8 relative duration-300`}
+                >
+                    <img
+                        src={controller}
+                        className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
+           border-2 rounded-full  ${!open && "rotate-180"}`}
+                        onClick={() => setOpen(!open)}
+                    />
+                    <div className="flex gap-x-4 items-center">
+                        {/* <img
+                        src="./src/assets/logo.png"
+                        className={`cursor-pointer duration-500 ${open && "rotate-[360deg]"
+                            }`}
+                    /> */}
+                        <MdGraphicEq className={`cursor-pointer duration-500 text-white ${open && "rotate-[360deg]"
+                            }`} />
+                        <h1
+                            className={`text-white origin-left font-medium text-xl duration-200 ${!open && "scale-0"
+                                }`}
+                        >
+                            <p className="logo">
+                                <span style={{ fontWeight: "bold" }}>
+                                    SS
+                                </span>
+                                <span
+                                    style={{
+                                        fontStyle: "italic",
+                                        fontFamily: "PlayFair Display, sans-serif",
+                                        color: "#37BC96"
+                                    }}
+                                >
+                                    Shop
+                                </span>
+                            </p>
+                        </h1>
+                    </div>
+                    <ul className="pt-6">
+                        {Menus.map((Menu, index) => (
+                            <li
+                                onClick={() => setRenderItem(Menu.id)}
+                                key={index}
+                                className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
+              ${Menu.gap ? "mt-9" : "mt-2"} ${index === 0 && "bg-light-white"
+                                    } `}
+                            >
+                                {Menu.src}
+                                <span className={`${!open && "hidden"} origin-left duration-200`}>
+                                    {Menu.title}
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                <div className="h-screen flex-1 p-4">
+                    {renderItem === 1 && <MyAccount loggedInUser={loggedInUser} />}
+                    {renderItem === 2 && <MyOrder loggedInUser={loggedInUser} />}
+                    {renderItem === 3 && <MyTransaction loggedInUser={loggedInUser} />}
+                </div>
+            </div>
+        </>
+    );
+};
+
+const MyAccount = ({ loggedInUser }) => {
+    return (
+        <div>
+            <marquee className="text-[#000D50] font-semibold text-[16px]">NOTICE : কোন সমস্যা হলে মেসেঞ্জারে এসএমএস করবেন... আমাদের সেন্ড মানি নাম্বারে যদি কেউ ফোন করে থাকে তাহলে তার টাকা এড করে দেওয়া হবে না এমনকি অর্ডারও কমপ্লিট করে দেওয়া হবে না |</marquee>
+            <div className="w-full bg-white py-5 mt-2 rounded-sm md:w-1/2 mx-auto flex justify-center">
+                <div className="">
+                    <h1 className="text-2xl text-center font-medium">My Account</h1>
+                    <div>
+                        <h1 className="mt-3 text-lg font-medium text-center">Name: {loggedInUser?.result?.user?.userName}</h1>
+                        <h1 className="text-center mt-1 font-medium">Email: {loggedInUser?.result?.user?.email}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const MyOrder = () => {
+    return (
+        <div>
+            <marquee className="text-[#000D50] font-semibold text-[14px]">NOTICE : কোন সমস্যা হলে মেসেঞ্জারে এসএমএস করবেন... আমাদের সেন্ড মানি নাম্বারে যদি কেউ ফোন করে থাকে তাহলে তার টাকা এড করে দেওয়া হবে না এমনকি অর্ডারও কমপ্লিট করে দেওয়া হবে না |</marquee>
+            <h1 className="text-2xl font-medium">My Order</h1>
+        </div>
+    );
+};
+
+const MyTransaction = () => {
+    return (
+        <div>
+            <marquee className="text-[#000D50] font-semibold text-[14px]">NOTICE : কোন সমস্যা হলে মেসেঞ্জারে এসএমএস করবেন... আমাদের সেন্ড মানি নাম্বারে যদি কেউ ফোন করে থাকে তাহলে তার টাকা এড করে দেওয়া হবে না এমনকি অর্ডারও কমপ্লিট করে দেওয়া হবে না |</marquee>
+            <h1 className="text-2xl font-medium">My Transaction</h1>
+        </div>
+    );
+};
+
+export default UserDash;

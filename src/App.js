@@ -18,6 +18,7 @@ import Popup from './Components/Shared/Popup/Popup';
 import { POPUP_DATA } from './Utils/Constant';
 import PaymentMethod from './Pages/TouupPage/PaymentMethod';
 import SelectPaymentMethodPopup from './Pages/TouupPage/SelectPaymentMethodPopup';
+import UserDash from './Pages/Dashboard/UserDash';
 
 const dataContext = createContext();
 function App() {
@@ -94,12 +95,15 @@ function App() {
           <Route path='/contact' element={<ContactPage />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
+          <Route path='/dashboard' element={<UserDash />} />
         </Routes>
         <MessengerCustomerChat
           pageId="107411695538516"
           appId="664455595334952"
         />,
-        <Footer />
+        {
+          window.location.href.includes('dashboard') ? null : <Footer />
+        }
         <Toaster />
       </dataContext.Provider>
     </div>
