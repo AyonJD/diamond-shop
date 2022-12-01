@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { dataContext } from '../../App';
 import PackageCard from '../../Components/Shared/PackageCard';
 import Popup from '../../Components/Shared/Popup/Popup';
 
@@ -8,6 +9,7 @@ const TopupDetails = () => {
     const [service, setService] = useState({});
     const [openPopup, setOpenPopup] = useState(true);
     const inCode = '6385ca463baa4f1535334a07'
+    const { setOpenWelcomePopup } = useContext(dataContext);
 
     const getService = async () => {
         try {
@@ -21,6 +23,7 @@ const TopupDetails = () => {
     }
     useEffect(() => {
         getService();
+        setOpenWelcomePopup(false);
     }, [])
 
     return (

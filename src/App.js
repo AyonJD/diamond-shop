@@ -23,7 +23,7 @@ function App() {
   const [userId, setUserId] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [services, setServices] = useState([]);
-  const [openPopup, setOpenPopup] = useState(true);
+  const [openWelcomePopup, setOpenWelcomePopup] = useState(true);
 
   const getLoggedInUser = async () => {
     try {
@@ -67,13 +67,14 @@ function App() {
     userId,
     setUserId,
     loggedInUser,
-    services
+    services,
+    setOpenWelcomePopup
   }
 
   return (
     <div>
       <dataContext.Provider value={dataObject}>
-        {openPopup && <Popup popupData={POPUP_DATA} setOpenPopup={setOpenPopup} />}
+        {openWelcomePopup && <Popup popupData={POPUP_DATA} setOpenPopup={setOpenWelcomePopup} />}
         <Navigation />
         <Routes>
           <Route path='/' element={<LandingPage />} />
