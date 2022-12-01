@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import PackageCard from '../../Components/Shared/PackageCard';
+import Popup from '../../Components/Shared/Popup/Popup';
 
 const TopupDetails = () => {
     const { id } = useParams();
     const [service, setService] = useState({});
+    const [openPopup, setOpenPopup] = useState(true);
     const inCode = '6385ca463baa4f1535334a07'
 
     const getService = async () => {
@@ -20,9 +22,10 @@ const TopupDetails = () => {
     useEffect(() => {
         getService();
     }, [])
-    
+
     return (
         <div>
+            {openPopup && <Popup setOpenPopup={setOpenPopup} popupData={service?.result?.popupData} />}
             {
                 id === inCode ? (
                     <div className='mid-container'>

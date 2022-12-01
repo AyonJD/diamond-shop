@@ -14,6 +14,8 @@ import Signup from './Pages/Auth/Signup';
 import { createContext, useEffect, useState } from 'react';
 import MessengerCustomerChat from 'react-messenger-customer-chat';
 import TopupDetails from './Pages/TouupPage/TopupDetails';
+import Popup from './Components/Shared/Popup/Popup';
+import { POPUP_DATA } from './Utils/Constant';
 
 const dataContext = createContext();
 function App() {
@@ -21,6 +23,7 @@ function App() {
   const [userId, setUserId] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [services, setServices] = useState([]);
+  const [openPopup, setOpenPopup] = useState(true);
 
   const getLoggedInUser = async () => {
     try {
@@ -70,6 +73,7 @@ function App() {
   return (
     <div>
       <dataContext.Provider value={dataObject}>
+        {openPopup && <Popup popupData={POPUP_DATA} setOpenPopup={setOpenPopup} />}
         <Navigation />
         <Routes>
           <Route path='/' element={<LandingPage />} />
