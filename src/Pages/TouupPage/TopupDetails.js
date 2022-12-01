@@ -102,7 +102,14 @@ const TopupDetails = () => {
                                 {
                                     service?.result?.package?.map((item, index) => {
                                         return (
-                                            <PackageCard key={index} item={item} />
+                                            <PackageCard
+                                                key={index}
+                                                index={index}
+                                                item={item}
+                                                setSelectedPackage={setSelectedPackage}
+                                                setCurrentIndex={setCurrentIndex}
+                                                currentIndex={currentIndex}
+                                            />
                                         )
                                     })
                                 }
