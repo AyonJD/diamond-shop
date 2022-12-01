@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState, useId } from 'react';
+import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 import { dataContext } from '../../App';
 import PackageCard from '../../Components/Shared/PackageCard';
@@ -40,6 +41,10 @@ const TopupDetails = () => {
     }
 
     const generatePaymentId = async () => {
+        if (!playerId) {
+            toast.error('Please enter your player id');
+            return;
+        }
         const randomString = Math.random().toString(36).substring(2, 4);
         const paymentId = randomString + Date.now();
         setPaymentId(paymentId);
