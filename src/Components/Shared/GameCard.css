@@ -50,35 +50,35 @@ img{
 
 /*! Front */
 
-.front{
+.game_fromt{
     transition: 250ms;
 }
 
-.thumbnail{
+.game_image{
     border-radius: var(--br);
 }
 
-.front .name{
+.game_fromt .game_title{
     margin: .75rem 0;
     font-size: 1rem;
     font-weight: bold;
     text-align: center;
 }
 
-.front .stats{
+.game_fromt .stats{
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 0 !important;
 }
-.front .stats .viewers{
+.game_fromt .stats .viewers{
     font-size: .75rem;
     font-weight: bold;
 }
 
 /*! Back  */
 
-.back{
+.game_back{
     opacity: 0;
     position: absolute;
     bottom: 0;
@@ -90,7 +90,7 @@ img{
     gap: .5rem;
 }
 
-.background{
+.game_background{
     background-color: rgb(141, 141, 141);
     position: absolute;
     top: 0;
@@ -104,7 +104,7 @@ img{
     
 }
 
-.game:hover .background{
+.game:hover .game_background{
     transition: 
         var(--transition),
         opacity 100ms linear;
@@ -118,7 +118,7 @@ img{
     /* display: none; */
 }
 
-.game:hover .front{
+.game:hover .game_fromt{
     transform: translateY(-44%) scale(.9);
 }
 
@@ -126,7 +126,7 @@ img{
     border: 2px solid green;
 }
 
-.game:hover .name{
+.game:hover .game_title{
     animation: gameName 300ms forwards;
     margin: 1.8rem;
     margin-bottom: 0 !important;
@@ -136,7 +136,7 @@ img{
     transform: translate(165%, -60%);
 }
 
-.game:hover .back{
+.game:hover .game_back{
     opacity: 1;
 }
 
@@ -155,44 +155,6 @@ img{
 .game-stat span{
     display: block;
     font-size: .85rem;
-}
-
-.icon{
-  width: 2em;
-  height: 2em;
-  display: inline-block;
-  position: relative;
-}
-
-.icon::before, .icon::after{
-  content: "";
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom:0;
-  border-radius:50%;
-}
-
-.icon::before{
-  content: "\f144";
-  font-family: "Font Awesome 5 Free";
-  font-weight:900;
-  font-size:1rem;
-  background: #f00;
-  display:grid;
-  place-items:center;
-  z-index:10;
-  display:none;
-}
-
-.icon:hover::after{
-  background: #f00;
-  z-index: 1;
-  animation: pulse 2000ms infinite;
-  display:none;
 }
 
 

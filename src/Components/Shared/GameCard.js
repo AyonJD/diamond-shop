@@ -9,26 +9,26 @@ const GameCard = ({ service, serial }) => {
   return (
     <div onClick={()=>navigate(`/topup/${_id}`)} className="game">
       <div className="rank">{serial + 1}</div>
-      <div className="front">
-        <img className="thumbnail" src={image} alt="Free Fire" />
-        <h3 className="name">{title}</h3>
+      <div className="game_fromt">
+        <img className="game_image" src={image} alt="Free Fire" />
+        <h3 className="game_title">{title}</h3>
         {
           coming ?
-            <div className="stats">
+            <div className="game_stats">
               <p className="viewers">{coming}</p>
             </div>
             :
             <>
-              <div className="stats">
+              <div className="game_stats">
                 <p className="viewers">{serverName === 'facebook'? '' : serverName}</p>
               </div>
-              <div className="stats">
+              <div className="game_stats">
                 <p className="viewers">{time}</p>
               </div>
             </>
         }
       </div>
-      <div className="back">
+      <div className="game_back">
         {
           coming ?
             <p classNameName='font-semibold text-xl text-center mt-[-100px]'>{coming}</p>
@@ -44,7 +44,7 @@ const GameCard = ({ service, serial }) => {
             </>
         }
       </div>
-      <div className="background"></div>
+      <div className="game_background"></div>
     </div>
   );
 };
