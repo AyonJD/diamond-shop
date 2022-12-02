@@ -100,7 +100,7 @@ function App() {
         <MessengerCustomerChat
           pageId="107411695538516"
           appId="664455595334952"
-        />,
+        />
         {
           window.location.href.includes('dashboard') ? null : <Footer />
         }

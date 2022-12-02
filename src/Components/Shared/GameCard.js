@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './GameCard.css';
+// import './GameCard.css';
 
 const GameCard = ({ service, serial }) => {
   const { title, image, serverName, time, _id } = service;
