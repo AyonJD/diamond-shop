@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { MdGraphicEq } from "react-icons/md";
+import { BsFillBellFill } from "react-icons/bs";
 import { dataContext } from "../../App";
 import NavigationDropdown from "./NavigationDropdown";
 
@@ -79,8 +80,12 @@ function Navigation() {
         </Navbar.Items>
       </div>
 
-      <div className="flex items-center">
+      <div className="flex items-start">
         {/* Login Logout button */}
+        <div className="mt-[10px] sm:mt-[4px] relative w-fit">
+          <BsFillBellFill className="h-5 w-5 mr-3" />
+          <small className="text-white text-[10px] bg-red-500 px-1 rounded-full absolute top-[-8px] right-2">3</small>
+        </div>
 
         {token && <NavigationDropdown handleScreen="include_sm_show" />}
 

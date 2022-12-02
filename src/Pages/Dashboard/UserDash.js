@@ -15,6 +15,7 @@ const UserDash = () => {
         { title: "My Account", src: <MdAccountBox className="h-6 w-6" />, id: 1 },
         { title: "My Order", src: <RiSecurePaymentFill className="h-6 w-6" />, id: 2 },
         { title: "My Transaction ", src: <AiOutlineTransaction className="h-6 w-6" />, id: 3 },
+        // { title: "Notification ", src: <AiOutlineTransaction className="h-6 w-6" />, id: 3 },
     ];
 
     return (
@@ -105,7 +106,6 @@ const MyAccount = ({ loggedInUser }) => {
 const MyOrder = () => {
     const { usersOrder, loggedInUser } = useContext(dataContext)
     const navigate = useNavigate();
-    console.log(usersOrder);
     return (
         <div>
             <marquee className="text-[#000D50] font-semibold text-[14px]">NOTICE : কোন সমস্যা হলে মেসেঞ্জারে এসএমএস করবেন... আমাদের সেন্ড মানি নাম্বারে যদি কেউ ফোন করে থাকে তাহলে তার টাকা এড করে দেওয়া হবে না এমনকি অর্ডারও কমপ্লিট করে দেওয়া হবে না |</marquee>
