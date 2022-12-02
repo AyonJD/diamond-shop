@@ -105,13 +105,13 @@ const MyAccount = ({ loggedInUser }) => {
 const MyOrder = () => {
     const { usersOrder, loggedInUser } = useContext(dataContext)
     const navigate = useNavigate();
-
+    console.log(usersOrder);
     return (
         <div>
             <marquee className="text-[#000D50] font-semibold text-[14px]">NOTICE : কোন সমস্যা হলে মেসেঞ্জারে এসএমএস করবেন... আমাদের সেন্ড মানি নাম্বারে যদি কেউ ফোন করে থাকে তাহলে তার টাকা এড করে দেওয়া হবে না এমনকি অর্ডারও কমপ্লিট করে দেওয়া হবে না |</marquee>
             <h1 className="text-2xl font-medium mb-4">My Order</h1>
             {
-                usersOrder?.length === 0 ? <h1 className="text-center text-2xl my-10 font-medium">No Order Found</h1> : (
+                usersOrder?.result?.length === 0 ? <h1 className="text-center text-2xl my-10 font-medium">No Order Found</h1> : (
                     <div className="w-full handle_table_height overflow-y-auto">
                         <div className="overflow-x-auto">
                             <table className="table table-zebra table-compact w-full">
