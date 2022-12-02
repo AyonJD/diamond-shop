@@ -13,8 +13,7 @@ const NavigationDropdown = ({ handleScreen }) => {
     };
 
     const handleLogout = () => {
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('user_id');
+        localStorage.clear();
         handleDropDown();
         navigate('/login');
         toast.success('Logged out successfully');
@@ -50,7 +49,7 @@ const NavigationDropdown = ({ handleScreen }) => {
 
             <div
                 id="dropdown"
-                className={`z-10 w-44 bg-white rounded divide-y absolute right-4 top-[5rem] divide-gray-100 shadow ${isOpen ? "block" : "hidden"
+                className={`z-10 w-44 bg-white rounded divide-y absolute right-0 top-[3.7rem] divide-gray-100 shadow ${isOpen ? "block" : "hidden"
                     }`}
             >
                 <ul className=" z-10 w-44 bg-white rounded divide-y divide-gray-300 shadow ">

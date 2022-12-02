@@ -29,6 +29,24 @@ function App() {
   const [openWelcomePopup, setOpenWelcomePopup] = useState(true);
   const [selectedPackage, setSelectedPackage] = useState({});
   const [selectedService, setSelectedService] = useState({});
+  const [allOrders, setAllOrders] = useState([]);
+  const [usersOrder, setUsersOrder] = useState([]);
+
+  const getAllOrderOfUser = async () => {
+    try {
+      const res = await fetch('https://sourav-shop-server.up.railway.app/api/v1/auth/payment/my-orders', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId }),
+      });
+      const data = await res.json();
+      setUsersOrder(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const getLoggedInUser = async () => {
     try {
@@ -61,6 +79,7 @@ function App() {
     setToken(localStorage.getItem('access_token'));
     setUserId(localStorage.getItem('user_id'));
     if (userId) {
+      getAllOrderOfUser();
       getLoggedInUser();
     }
   }, [token, userId]);
@@ -77,7 +96,8 @@ function App() {
     selectedPackage,
     setSelectedPackage,
     selectedService,
-    setSelectedService
+    setSelectedService,
+    usersOrder
   }
 
   return (

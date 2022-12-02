@@ -287,6 +287,10 @@ body {
   }
 }
 
-.link{
+.link {
   text-decoration: none !important;
+}
+
+.table th:first-child {
+  position: static !important;
 }

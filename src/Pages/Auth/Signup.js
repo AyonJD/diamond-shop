@@ -10,7 +10,7 @@ import toast from 'react-hot-toast';
 import { dataContext } from '../../App';
 
 const Signup = () => {
-    const { token, setToken } = useContext(dataContext)
+    const { token, setToken, setUserId } = useContext(dataContext)
     const navigate = useNavigate();
     const { register, formState: { errors }, handleSubmit, trigger, reset } = useForm();
     const location = useLocation();
@@ -43,7 +43,9 @@ const Signup = () => {
             reset();
             toast.success('Account created successfully');
             setToken(result.token);
+            setUserId(result.result.id);
             localStorage.setItem('access_token', result.token);
+            localStorage.setItem('user_id', result.result.id);
             navigate(from, { replace: true });
         } else {
             toast.error('Something went wrong');

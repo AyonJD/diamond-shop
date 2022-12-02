@@ -7,12 +7,15 @@ import { MdPayment } from 'react-icons/md';
 import bkashImage from '../../Asset/bkash.png';
 import nagadImage from '../../Asset/nagad.png';
 import rocketImage from '../../Asset/roccket.png';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const SelectPaymentMethodPopup = () => {
     const { setOpenWelcomePopup } = useContext(dataContext);
     const [openPaymentMethod, setOpenPaymentMethod] = useState(true);
     const [openInvoice, setOpenInvoice] = useState(false);
     const [openSupport, setOpenSupport] = useState(false);
+    const navigate = useNavigate()
 
     useEffect(() => {
         setOpenWelcomePopup(false);
@@ -39,7 +42,12 @@ const SelectPaymentMethodPopup = () => {
     return (
         <div className='popup_wrapper'>
             <div className="popup_content relative">
-                <ImCross className='absolute right-0 top-0 mr-4 mt-4 h-4 w-4 cursor-pointer' />
+                <ImCross className='absolute right-0 top-0 mr-4 mt-4 h-4 w-4 cursor-pointer'
+                onClick={() => {
+                    navigate('/')
+                    toast.error('Payment failed')
+                }}
+                />
                 <div>
                     <div className=''>
                         <h1 className='text-center font-semibold text-2xl'>SS Shop</h1>
