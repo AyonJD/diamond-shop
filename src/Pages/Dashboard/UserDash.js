@@ -15,7 +15,6 @@ const UserDash = () => {
         { title: "My Account", src: <MdAccountBox className="h-6 w-6" />, id: 1 },
         { title: "My Order", src: <RiSecurePaymentFill className="h-6 w-6" />, id: 2 },
         { title: "My Transaction ", src: <AiOutlineTransaction className="h-6 w-6" />, id: 3 },
-        // { title: "Notification ", src: <AiOutlineTransaction className="h-6 w-6" />, id: 3 },
     ];
 
     return (
@@ -119,7 +118,7 @@ const MyOrder = () => {
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Email</th>
+                                        <th>Amount</th>
                                         <th>Order ID</th>
                                         <th>Order Status</th>
                                         <th>Order Time</th>
@@ -131,12 +130,15 @@ const MyOrder = () => {
                                         usersOrder?.result?.map((order, index) => {
                                             return (
                                                 <tr key={index}>
-                                                    <td>{index + 1}</td>
-                                                    <td>{loggedInUser?.result?.user?.userName}</td>
-                                                    <td>{loggedInUser?.result?.user?.email}</td>
-                                                    <td>{order?.invoiceId}</td>
-                                                    <td>{order?.paymentStatus}</td>
-                                                    <td>{order?.paymentTime}</td>
+                                                    <td className="font-medium">{index + 1}</td>
+                                                    <td className="font-medium">{loggedInUser?.result?.user?.userName}</td>
+                                                    <td className="font-medium">
+                                                        {order?.pack?.price}
+                                                        <sup className='text-red-600 font-bold ml-1'>BDT</sup>
+                                                    </td>
+                                                    <td className="font-medium">{order?.invoiceId}</td>
+                                                    <td className="font-medium">{order?.paymentStatus}</td>
+                                                    <td className="font-medium">{order?.paymentTime}</td>
                                                     <td>
                                                         {
                                                             order?.paymentStatus === "Pending" ? (
@@ -166,10 +168,62 @@ const MyOrder = () => {
 };
 
 const MyTransaction = () => {
+    const { usersOrder, loggedInUser } = useContext(dataContext)
+    const completedTransaction = usersOrder?.result?.filter(order => order?.paymentTrxNumber !== "Not set");
+
     return (
         <div>
             <marquee className="text-[#000D50] font-semibold text-[14px]">NOTICE : কোন সমস্যা হলে মেসেঞ্জারে এসএমএস করবেন... আমাদের সেন্ড মানি নাম্বারে যদি কেউ ফোন করে থাকে তাহলে তার টাকা এড করে দেওয়া হবে না এমনকি অর্ডারও কমপ্লিট করে দেওয়া হবে না |</marquee>
-            <h1 className="text-2xl font-medium">My Transaction</h1>
+            <h1 className="text-2xl font-medium mb-4">My Transaction</h1>
+            {
+                usersOrder?.result?.length === 0 ? <h1 className="text-center text-2xl my-10 font-medium">You have no transaction.</h1> : (
+                    <div className="w-full handle_table_height overflow-y-auto">
+                        <div className="overflow-x-auto">
+                            <table className="table table-zebra table-compact w-full">
+                                <thead className="">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Package</th>
+                                        <th>Amount</th>
+                                        <th>Transaction Number</th>
+                                        <th>Number</th>
+                                        <th>Payment Method</th>
+                                        <th>Confirm Status</th>
+                                        <th>Delivery Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        completedTransaction?.map((order, index) => {
+                                            return (
+                                                <tr key={index}>
+                                                    <td className="font-medium">{index + 1}</td>
+                                                    <td className="font-medium">{loggedInUser?.result?.user?.userName}</td>
+                                                    <td className="font-medium">{order?.pack?.title}</td>
+                                                    <td className="font-medium">
+                                                        {order?.paymentAmount}
+                                                        <sup className='text-red-600 font-bold ml-1'>BDT</sup>
+                                                    </td>
+                                                    <td className="font-medium">{order?.invoiceId}</td>
+                                                    <td className="font-medium">{order?.paymentNumber}</td>
+                                                    <td className="font-medium">{order?.paymentMethod}</td>
+                                                    <td className="font-medium">{order?.paymentStatus}</td>
+                                                    <td>
+                                                        {order?.updatedAt?.split("T")[0]}
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                )
+            }
+
+
         </div>
     );
 };
