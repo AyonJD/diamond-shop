@@ -294,3 +294,15 @@ body {
 .table th:first-child {
   position: static !important;
 }
+
+
+::-webkit-scrollbar{
+  width: 7px;
+}
+::-webkit-scrollbar-thumb{
+  background: linear-gradient(transparent, #008660);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover{
+  background: linear-gradient(transparent, #00c6ff)
+}

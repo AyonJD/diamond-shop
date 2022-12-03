@@ -40,7 +40,7 @@ const GameCard = ({ service, serial }) => {
                   <span>Rating</span></p>
                 <p className="game-stat">{'10K'}<span>Reviews</span></p>
               </div>
-              <button className="btn rounded-md">Get It Now</button>
+              <button className=" text-white border-[#37BC96] border px-4 py-1 rounded-md bg-[#37BC96] delay-100 transition-all ease-in-out hover:bg-[#01996D]">Get It Now</button>
             </>
         }
       </div>
