@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import { FaCopy } from 'react-icons/fa';
 import { dataContext } from '../../App';
 import bkashImage from '../../Asset/bkash.png';
 import nagadImage from '../../Asset/nagad.png';
@@ -21,8 +22,8 @@ const Checkout = () => {
     }
 
     return (
-        <div>
-            <div className={`w-full md:w-1/2 mx-auto my-5 bg-gradient-to-r ${method === 'bkash' ? 'from-[#e44f83] to-[#db2766]' : method === 'rocket' ? 'from-[#9d3fa1] to-[#8d1194]' : method === 'nagad' ? 'from-[#e63b41] to-[#e71017]' : ''}`}>
+        <div className=''>
+            <div className={`w-full border border-slate-300 rounded-sm md:w-1/2 mx-auto my-5 bg-gradient-to-r ${method === 'bkash' ? 'from-[#e44f83] to-[#db2766]' : method === 'rocket' ? 'from-[#9d3fa1] to-[#8d1194]' : method === 'nagad' ? 'from-[#e63b41] to-[#e71017]' : ''}`}>
                 <div className={`bg-white mb-1 ${method === 'rocket' ? 'py-5' : ''}`}>
                     <img
                         className={`w-1/6 mx-auto min-h-[80px]`}
@@ -42,10 +43,40 @@ const Checkout = () => {
                         <h1 className='text-[1.5rem] font-bold ml-1'>{willPaymentFor?.paymentAmount}</h1>
                     </div>
                 </div>
-                <div className={` bg-gradient-to-r ${method === 'bkash' ? 'from-[#e44f83] to-[#db2766]' : method === 'rocket' ? 'from-[#9d3fa1] to-[#8d1194]' : method === 'nagad' ? 'from-[#e63b41] to-[#e71017]' : ''}`}>
-                    <h1 className='text-center text-xl font-medium py-3 text-white'>Enter {method} Transaction Id</h1>
-                    
+                <div className={`py-4 bg-gradient-to-r ${method === 'bkash' ? 'from-[#e44f83] to-[#db2766]' : method === 'rocket' ? 'from-[#9d3fa1] to-[#8d1194]' : method === 'nagad' ? 'from-[#e63b41] to-[#e71017]' : ''}`}>
+                    <h1 className='text-center text-xl font-medium text-white'>Enter {method} Transaction Id</h1>
+                    <div className="text-center">
+                        <input className='w-1/2 mx-auto py-2 px-3 text-center border border-transparent focus:border focus:border-blue-400 outline-none rounded-sm mt-5' type="number" placeholder='Enter Your Phone' />
+                    </div>
+                    <div className="text-center">
+                        <input className='w-1/2 mx-auto py-2 px-3 text-center border border-transparent focus:border focus:border-blue-400 outline-none rounded-sm mt-5' type="text" placeholder='Enter Transaction Id' />
+                    </div>
+
+                    <ul className='text-white pt-4 px-7'>
+                        <li className='text-justify'>
+                            ১) {method === 'bkash' ? '*247#' : method === 'rocket' ? '*322#' : method === 'nagad' ? '*167#' : ''} ডায়াল করে আপনার বিকাশ মোবাইল মেনুতে যান অথবা {method === 'bkash' ? 'বিকাশ' : method === 'rocket' ? 'রকেট' : method === 'nagad' ? 'নগদ' : ''} অ্যাপে যান।
+                        </li>
+                        <li className='text-justify'>
+                            ২) <span className='text-lg font-semibold text-yellow-300'>"Send Money"</span> - তে ক্লিক করুন।
+                        </li>
+                        <li className='text-justify flex items-center'>
+                            ৩) প্রাপক নম্বর হিসেবে এই নম্বরটি লিখুনঃ <span className='flex ml-2 items-center text-lg font-semibold text-yellow-300'>01920204818 <FaCopy className='ml-2 cursor-pointer' /></span>
+                        </li>
+                        <li className='text-justify flex items-center'>
+                            ৪) টাকার পরিমাণঃ <span className='text-lg font-semibold text-yellow-300 ml-2'>{willPaymentFor?.paymentAmount}</span>
+                        </li>
+                        <li className='text-justify flex items-center'>
+                            ৫) এখন নিশ্চিত করতে আপনার {method === 'bkash' ? 'বিকাশ' : method === 'rocket' ? 'রকেট' : method === 'nagad' ? 'নগদ' : ''} পিন লিখুন।
+                        </li>
+                        <li className='text-justify flex items-center'>
+                            ৬) সবকিছু ঠিক থাকলে, আপনি {method === 'bkash' ? 'বিকাশ' : method === 'rocket' ? 'রকেট' : method === 'nagad' ? 'নগদ' : ''} থেকে একটি নিশ্চিতকরণ বার্তা পাবেন।
+                        </li>
+                        <li className='text-justify flex items-center'>
+                            ৭) এখন উপরের প্রথম বক্সে আপনার ফোন নাম্বার এবং দ্বিতীয় বক্সে "Transaction ID" দিন আর নিচের "VERIFY" বাটনে ক্লিক করুন।
+                        </li>
+                    </ul>
                 </div>
+                <button className='w-full py-3 text-xl font-bold text-gray-600 bg-white'>VERIFY</button>
             </div>
         </div>
     );
