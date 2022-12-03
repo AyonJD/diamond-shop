@@ -9,10 +9,13 @@ const PaymentMethod = () => {
     const navigate = useNavigate();
     const invoiceId = useParams().id;
     const { serviceId } = useParams();
-    const { loggedInUser, selectedService, setSelectedService } = useContext(dataContext);
+    const { loggedInUser, selectedService, setSelectedService, usersOrder } = useContext(dataContext);
     const localPackage = localStorage.getItem('selectedPackage');
-    const playerId = localStorage.getItem('playerId');
+    const gameInfo = localStorage.getItem('gameInfo');
+    const gameInfoObj = JSON.parse(gameInfo);
     const pack = JSON.parse(localPackage);
+
+    const orderId = usersOrder?.result?.find(order => order.invoiceId === invoiceId)?._id;
 
     const getService = async () => {
         try {
@@ -30,9 +33,7 @@ const PaymentMethod = () => {
     }, [])
 
     const handlePayment = () => {
-        // const randomString = Math.random().toString(36).substring(2, 36);
-        // const paymentId = randomString + Date.now();
-        navigate(`/payment/${invoiceId}`);
+        navigate(`/payment/${orderId}/${invoiceId}`);
     }
 
     //get current time in 12 hours format
@@ -54,13 +55,10 @@ const PaymentMethod = () => {
         const user = await loggedInUser.result.user;
         const service = await selectedService.result;
         const pack = await JSON.parse(localPackage);
-        const gameInfo = {
-            playerId,
-        }
 
         const dataToInsert = {
             user,
-            gameInfo,
+            gameInfo: gameInfoObj,
             service,
             pack,
             invoiceId,
