@@ -29,9 +29,9 @@ const PaymentMethod = () => {
     }, [])
 
     const handlePayment = () => {
-        const randomString = Math.random().toString(36).substring(2, 36);
-        const paymentId = randomString + Date.now();
-        navigate(`/payment/${paymentId}`);
+        // const randomString = Math.random().toString(36).substring(2, 36);
+        // const paymentId = randomString + Date.now();
+        navigate(`/payment/${invoiceId}`);
     }
 
     //get current time in 12 hours format

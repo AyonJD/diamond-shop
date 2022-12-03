@@ -7,7 +7,7 @@ import { MdPayment } from 'react-icons/md';
 import bkashImage from '../../Asset/bkash.png';
 import nagadImage from '../../Asset/nagad.png';
 import rocketImage from '../../Asset/roccket.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 const SelectPaymentMethodPopup = () => {
@@ -16,6 +16,7 @@ const SelectPaymentMethodPopup = () => {
     const [openInvoice, setOpenInvoice] = useState(false);
     const [openSupport, setOpenSupport] = useState(false);
     const navigate = useNavigate()
+    const invoiceId = useParams().id;
 
     useEffect(() => {
         setOpenWelcomePopup(false);
@@ -43,10 +44,10 @@ const SelectPaymentMethodPopup = () => {
         <div className='popup_wrapper'>
             <div className="popup_content relative">
                 <ImCross className='absolute right-0 top-0 mr-4 mt-4 h-4 w-4 cursor-pointer'
-                onClick={() => {
-                    navigate('/')
-                    toast.error('Payment failed')
-                }}
+                    onClick={() => {
+                        navigate('/')
+                        toast.error('Payment failed')
+                    }}
                 />
                 <div>
                     <div className=''>
@@ -74,9 +75,21 @@ const SelectPaymentMethodPopup = () => {
                         {
                             openPaymentMethod && (
                                 <div className="flex w-full items-center justify-between">
-                                    <img className='w-1/4 h-auto cursor-pointer' src={bkashImage} alt="" />
-                                    <img className='w-1/4 h-auto cursor-pointer' src={rocketImage} alt="" />
-                                    <img className='w-1/4 h-auto cursor-pointer' src={nagadImage} alt="" />
+                                    <img
+                                        onClick={() => {
+                                            navigate(`/checkout/bkash/${invoiceId}`)
+                                        }}
+                                    className='w-1/4 h-auto cursor-pointer' src={bkashImage} alt="" />
+                                    <img
+                                        onClick={() => {
+                                            navigate(`/checkout/rocket/${invoiceId}`)
+                                        }}
+                                        className='w-1/4 h-auto cursor-pointer' src={rocketImage} alt="" />
+                                    <img
+                                        onClick={() => {
+                                            navigate(`/checkout/nagad/${invoiceId}`)
+                                        }}
+                                        className='w-1/4 h-auto cursor-pointer' src={nagadImage} alt="" />
                                 </div>
                             )
                         }

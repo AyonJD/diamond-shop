@@ -19,6 +19,7 @@ import { POPUP_DATA } from './Utils/Constant';
 import PaymentMethod from './Pages/TouupPage/PaymentMethod';
 import SelectPaymentMethodPopup from './Pages/TouupPage/SelectPaymentMethodPopup';
 import UserDash from './Pages/Dashboard/UserDash';
+import Checkout from './Pages/TouupPage/Checkout';
 
 const dataContext = createContext();
 function App() {
@@ -111,6 +112,7 @@ function App() {
           <Route path='/topup/:id' element={<TopupDetails />} />
           <Route path='/add-wallet/:serviceId/:id' element={<PaymentMethod />} />
           <Route path='/payment/:id' element={<SelectPaymentMethodPopup />} />
+          <Route path='/checkout/:method/:id' element={<Checkout />} />
           <Route path='/shop' element={<ShopPage />} />
           <Route path='/contact' element={<ContactPage />} />
           <Route path='/login' element={<Login />} />
