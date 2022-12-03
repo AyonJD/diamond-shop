@@ -105,6 +105,7 @@ const MyAccount = ({ loggedInUser }) => {
 const MyOrder = () => {
     const { usersOrder, loggedInUser } = useContext(dataContext)
     const navigate = useNavigate();
+    console.log(usersOrder)
     return (
         <div>
             <marquee className="text-[#000D50] font-semibold text-[14px]">NOTICE : কোন সমস্যা হলে মেসেঞ্জারে এসএমএস করবেন... আমাদের সেন্ড মানি নাম্বারে যদি কেউ ফোন করে থাকে তাহলে তার টাকা এড করে দেওয়া হবে না এমনকি অর্ডারও কমপ্লিট করে দেওয়া হবে না |</marquee>
@@ -143,7 +144,7 @@ const MyOrder = () => {
                                                         {
                                                             order?.paymentStatus === "Pending" ? (
                                                                 <button
-                                                                    onClick={() => navigate(`/payment/${order?.invoiceId}`)} className="text-white bg-[#37BC96] px-4 py-1 rounded-sm hover:bg-transparent border border-transparent hover:border-[#37BC96] hover:border hover:text-[#37BC96] w-[90px] font-semibold">Pay Now</button>
+                                                                    onClick={() => navigate(`/payment/${order._id}/${order?.invoiceId}`)} className="text-white bg-[#37BC96] px-4 py-1 rounded-sm hover:bg-transparent border border-transparent hover:border-[#37BC96] hover:border hover:text-[#37BC96] w-[90px] font-semibold">Pay Now</button>
                                                             ) : (
                                                                 <button
                                                                     disabled={true}
@@ -208,7 +209,7 @@ const MyTransaction = () => {
                                                     <td className="font-medium">{order?.invoiceId}</td>
                                                     <td className="font-medium">{order?.paymentNumber}</td>
                                                     <td className="font-medium">{order?.paymentMethod}</td>
-                                                    <td className="font-medium">{order?.paymentStatus}</td>
+                                                    <td className="font-medium">{order?.confirmStatus}</td>
                                                     <td>
                                                         {order?.updatedAt?.split("T")[0]}
                                                     </td>

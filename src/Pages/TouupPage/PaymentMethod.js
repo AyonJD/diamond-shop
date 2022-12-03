@@ -12,6 +12,7 @@ const PaymentMethod = () => {
     const { loggedInUser, selectedService, setSelectedService } = useContext(dataContext);
     const localPackage = localStorage.getItem('selectedPackage');
     const playerId = localStorage.getItem('playerId');
+    const pack = JSON.parse(localPackage);
 
     const getService = async () => {
         try {
@@ -49,6 +50,7 @@ const PaymentMethod = () => {
 
     const handleFormSubmit = async (data) => {
         handlePayment();
+        localStorage.setItem('selectedService', JSON.stringify(selectedService));
         const user = await loggedInUser.result.user;
         const service = await selectedService.result;
         const pack = await JSON.parse(localPackage);
@@ -66,7 +68,7 @@ const PaymentMethod = () => {
             paymentStatus: 'Pending',
             paymentDate: new Date(),
             paymentTime: getCurrentTime(),
-            paymentAmount: await data.amount,
+            paymentAmount: pack.price,
             paymentNumber: "Not set yet",
             paymentTrxNumber: "Not set",
             confirmStatus: 'Pending'
@@ -96,19 +98,19 @@ const PaymentMethod = () => {
                 <form
                     onSubmit={handleSubmit(handleFormSubmit)}
                     className='flex flex-col w-full md:w-1/2 md:mx-auto mt-10'>
-                    <input className='border-[#37BC96] outline-0 border rounded-md px-2 py-2 mt-1' type="number" placeholder='Enter Amount'
-                        {...register("amount", {
-                            required: 'Amount is required',
-                            minLength: {
-                                value: 2,
-                                message: 'Minimum 2 character required'
-                            }
-                        })}
-                        onKeyUp={(e) => {
-                            trigger('amount')
-                        }}
+                    <input className='border-[#37BC96] outline-0 border rounded-md px-2 py-2 mt-1' type="number" placeholder={`BDT ${pack?.price}`} disabled readOnly
+                    // {...register("amount", {
+                    //     required: 'Amount is required',
+                    //     minLength: {
+                    //         value: 2,
+                    //         message: 'Minimum 2 character required'
+                    //     }
+                    // })}
+                    // onKeyUp={(e) => {
+                    //     trigger('amount')
+                    // }}
                     />
-                    <small className='text-[#FF4B2B] pl-1 text-[12px]'>{errors?.amount?.message}</small>
+                    {/* <small className='text-[#FF4B2B] pl-1 text-[12px]'>{errors?.amount?.message}</small> */}
 
                     <input className='text-white border border-transparent font-semibold px-10 py-2 rounded-md bg-[#37BC96] hover:bg-transparent hover:border-[#37BC96] hover:border hover:text-[#37BC96] delay-100 transition-all ease-out mt-4 cursor-pointer w-1/2 mx-auto' type="submit" value="Add Money" />
                 </form>

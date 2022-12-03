@@ -111,8 +111,8 @@ function App() {
           <Route path='/topup' element={<TopupPage />} />
           <Route path='/topup/:id' element={<TopupDetails />} />
           <Route path='/add-wallet/:serviceId/:id' element={<PaymentMethod />} />
-          <Route path='/payment/:id' element={<SelectPaymentMethodPopup />} />
-          <Route path='/checkout/:method/:id' element={<Checkout />} />
+          <Route path='/payment/:orderId/:id' element={<SelectPaymentMethodPopup />} />
+          <Route path='/checkout/:method/:orderId/:id' element={<Checkout />} />
           <Route path='/shop' element={<ShopPage />} />
           <Route path='/contact' element={<ContactPage />} />
           <Route path='/login' element={<Login />} />

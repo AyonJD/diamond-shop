@@ -17,6 +17,7 @@ const SelectPaymentMethodPopup = () => {
     const [openSupport, setOpenSupport] = useState(false);
     const navigate = useNavigate()
     const invoiceId = useParams().id;
+    const { orderId } = useParams();
 
     useEffect(() => {
         setOpenWelcomePopup(false);
@@ -77,17 +78,17 @@ const SelectPaymentMethodPopup = () => {
                                 <div className="flex w-full items-center justify-between">
                                     <img
                                         onClick={() => {
-                                            navigate(`/checkout/bkash/${invoiceId}`)
+                                            navigate(`/checkout/bkash/${orderId}/${invoiceId}`)
                                         }}
-                                    className='w-1/4 h-auto cursor-pointer' src={bkashImage} alt="" />
+                                        className='w-1/4 h-auto cursor-pointer' src={bkashImage} alt="" />
                                     <img
                                         onClick={() => {
-                                            navigate(`/checkout/rocket/${invoiceId}`)
+                                            navigate(`/checkout/rocket/${orderId}/${invoiceId}`)
                                         }}
                                         className='w-1/4 h-auto cursor-pointer' src={rocketImage} alt="" />
                                     <img
                                         onClick={() => {
-                                            navigate(`/checkout/nagad/${invoiceId}`)
+                                            navigate(`/checkout/nagad/${orderId}/${invoiceId}`)
                                         }}
                                         className='w-1/4 h-auto cursor-pointer' src={nagadImage} alt="" />
                                 </div>
