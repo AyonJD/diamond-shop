@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { FaCopy } from 'react-icons/fa';
 import { dataContext } from '../../App';
 import bkashImage from '../../Asset/bkash.png';
@@ -11,6 +11,7 @@ import toast from 'react-hot-toast';
 const Checkout = () => {
     const invoiceId = useParams().id;
     const { orderId } = useParams();
+    const navigate = useNavigate();
     const { usersOrder, loggedInUser } = useContext(dataContext);
     const { register, formState: { errors }, handleSubmit, trigger, reset } = useForm();
     const willPaymentFor = usersOrder?.result?.find(order => order.invoiceId === invoiceId);
@@ -41,10 +42,15 @@ const Checkout = () => {
     }
 
     const handleFormSubmit = async (data) => {
-        const user = await loggedInUser.result.user;
-        const service = await selectedService.result;
+        const user = await loggedInUser?.result?.user;
+        const service = await selectedService?.result;
         const gameInfo = {
             playerId,
+        }
+
+        if (!user || !service || !pack || !gameInfo || !selectedService) {
+            toast.error('Something went wrong, please try again later');
+            return;
         }
 
         const dataToInsert = {
@@ -73,6 +79,8 @@ const Checkout = () => {
         });
         const result = await res.json();
         if (result.success) {
+            reset();
+            navigate('/payment/verify');
             toast.success('Payment Successfull');
         } else {
             toast.error('Payment Failed');

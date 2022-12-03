@@ -20,6 +20,7 @@ import PaymentMethod from './Pages/TouupPage/PaymentMethod';
 import SelectPaymentMethodPopup from './Pages/TouupPage/SelectPaymentMethodPopup';
 import UserDash from './Pages/Dashboard/UserDash';
 import Checkout from './Pages/TouupPage/Checkout';
+import PaymentVerify from './Pages/TouupPage/PaymentVerify';
 
 const dataContext = createContext();
 function App() {
@@ -113,6 +114,7 @@ function App() {
           <Route path='/add-wallet/:serviceId/:id' element={<PaymentMethod />} />
           <Route path='/payment/:orderId/:id' element={<SelectPaymentMethodPopup />} />
           <Route path='/checkout/:method/:orderId/:id' element={<Checkout />} />
+          <Route path='/payment/verify' element={<PaymentVerify />} />
           <Route path='/shop' element={<ShopPage />} />
           <Route path='/contact' element={<ContactPage />} />
           <Route path='/login' element={<Login />} />
