@@ -124,7 +124,7 @@ function App() {
           appId="664455595334952"
         />
         {
-          window.location.href.includes('dashboard') ? null : <Footer />
+          (window.location.href.includes('dashboard') || window.location.href.includes('checkout')) ? null : <Footer />
         }
         <Toaster />
       </dataContext.Provider>
