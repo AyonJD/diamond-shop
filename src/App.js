@@ -34,6 +34,17 @@ function App() {
   const [selectedService, setSelectedService] = useState({});
   const [allOrders, setAllOrders] = useState([]);
   const [usersOrder, setUsersOrder] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
+
+  const getAllUser = async () => {
+    try {
+      const res = await fetch('https://sourav-shop-server.up.railway.app/api/v1/auth/user');
+      const data = await res.json();
+      setAllUsers(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const getAllOrderOfUser = async () => {
     try {
@@ -75,6 +86,7 @@ function App() {
 
   useEffect(() => {
     getAllService();
+    getAllUser();
   }, [])
 
 
@@ -100,7 +112,8 @@ function App() {
     setSelectedPackage,
     selectedService,
     setSelectedService,
-    usersOrder
+    usersOrder,
+    allUsers,
   }
 
   return (

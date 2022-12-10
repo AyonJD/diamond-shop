@@ -8,6 +8,7 @@ import { HiOutlinePhoneIncoming } from "react-icons/hi"
 import controller from '../../../Asset/control.png'
 import { dataContext } from "../../../App";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 const AdminDash = () => {
     const [open, setOpen] = useState(false);
     const [renderItem, setRenderItem] = useState(1);
@@ -18,7 +19,7 @@ const AdminDash = () => {
         { title: "All User ", src: <AiOutlineUsergroupAdd className="h-6 w-6" />, id: 2 },
         { title: "Manage Order", src: <RiSecurePaymentFill className="h-6 w-6" />, id: 3 },
         { title: "Create Notification", src: <VscGitPullRequestCreate className="h-6 w-6" />, id: 4 },
-        { title: "Update Phone", src: <HiOutlinePhoneIncoming className="h-6 w-6" />, id: 4 },
+        { title: "Update Phone", src: <HiOutlinePhoneIncoming className="h-6 w-6" />, id: 5 },
     ];
 
     return (
@@ -84,6 +85,7 @@ const AdminDash = () => {
                     {renderItem === 2 && <AllUser loggedInUser={loggedInUser} />}
                     {renderItem === 3 && <ManageOrder loggedInUser={loggedInUser} />}
                     {renderItem === 4 && <CreateNotification loggedInUser={loggedInUser} />}
+                    {renderItem === 5 && <UpdatePhone loggedInUser={loggedInUser} />}
                 </div>
             </div>
         </>
@@ -108,14 +110,34 @@ const MyAccount = ({ loggedInUser }) => {
 
 
 const AllUser = () => {
-    const { usersOrder, loggedInUser } = useContext(dataContext)
-    const completedTransaction = usersOrder?.result?.filter(order => order?.paymentTrxNumber !== "Not set");
+    const { allUsers } = useContext(dataContext)
+
+    const updateUser = async (userId, role) => {
+        try {
+            const response = await fetch(`http://localhost:5000/api/v1/auth/user/${userId}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ role })
+            })
+            const data = await response.json()
+            if (data.success) {
+                toast.success('User role updated successfully.')
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1000)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <div>
-            <h1 className="text-2xl font-medium mb-4">My Transaction</h1>
+            <h1 className="text-2xl font-medium mb-4">Manage User</h1>
             {
-                usersOrder?.result?.length === 0 ? <h1 className="text-center text-2xl my-10 font-medium">You have no transaction.</h1> : (
+                allUsers?.result?.length === 0 ? <h1 className="text-center text-2xl my-10 font-medium">No user found.</h1> : (
                     <div className="w-full handle_table_height overflow-y-auto">
                         <div className="overflow-x-auto">
                             <table className="table table-zebra table-compact w-full">
@@ -123,33 +145,38 @@ const AllUser = () => {
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Package</th>
-                                        <th>Amount</th>
-                                        <th>Transaction Number</th>
-                                        <th>Number</th>
-                                        <th>Payment Method</th>
-                                        <th>Confirm Status</th>
-                                        <th>Delivery Date</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Joining Date</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {
-                                        completedTransaction?.map((order, index) => {
+                                        allUsers?.result?.map((user, index) => {
                                             return (
                                                 <tr className="hover" key={index}>
                                                     <td className="font-medium">{index + 1}</td>
-                                                    <td className="font-medium">{loggedInUser?.result?.user?.userName}</td>
-                                                    <td className="font-medium">{order?.pack?.title}</td>
-                                                    <td className="font-medium">
-                                                        {order?.paymentAmount}
-                                                        <sup className='text-red-600 font-bold ml-1'>BDT</sup>
-                                                    </td>
-                                                    <td className="font-medium">{order?.invoiceId}</td>
-                                                    <td className="font-medium">{order?.paymentNumber}</td>
-                                                    <td className="font-medium">{order?.paymentMethod}</td>
-                                                    <td className="font-medium">{order?.confirmStatus}</td>
+                                                    <td className="font-medium">{user?.userName}</td>
+                                                    <td className="font-medium">{user?.email}</td>
+                                                    <td className="font-medium">{user?.role}</td>
+                                                    <td className="font-medium">{user?.createdAt?.split("T")[0]}</td>
                                                     <td>
-                                                        {order?.updatedAt?.split("T")[0]}
+                                                        {
+                                                            user?.role === "admin" ? (
+                                                                <button
+                                                                    onClick={() => {
+                                                                        updateUser(user?._id, "user")
+                                                                    }}
+                                                                    className="text-white bg-[#37BC96] px-4 py-1 rounded-sm hover:bg-transparent border border-transparent hover:border-[#37BC96] hover:border hover:text-[#37BC96] w-[130px] font-semibold">Remove Admin</button>
+                                                            ) : (
+                                                                <button
+                                                                    onClick={() => {
+                                                                        updateUser(user?._id, "admin")
+                                                                    }}
+                                                                    className="text-white bg-[#37BC96] px-4 py-1 rounded-sm hover:bg-transparent border border-transparent hover:border-[#37BC96] hover:border hover:text-[#37BC96] w-[130px] font-semibold">Make Admin</button>
+                                                            )
+                                                        }
                                                     </td>
                                                 </tr>
                                             )
@@ -237,6 +264,12 @@ const CreateNotification = () => {
         <div>
             <h1 className="text-2xl font-medium mb-4">Create Notification</h1>
         </div>
+    )
+}
+
+const UpdatePhone = () => {
+    return (
+        <div>Update phone</div>
     )
 }
 

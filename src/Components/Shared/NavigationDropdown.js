@@ -7,7 +7,7 @@ const NavigationDropdown = ({ handleScreen }) => {
     const { loggedInUser } = useContext(dataContext);
     const [isOpen, setOpen] = useState(false);
     const navigate = useNavigate();
-    console.log(loggedInUser);
+    
     const handleDropDown = () => {
         setOpen(!isOpen);
     };
