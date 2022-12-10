@@ -7,7 +7,7 @@ const NavigationDropdown = ({ handleScreen }) => {
     const { loggedInUser } = useContext(dataContext);
     const [isOpen, setOpen] = useState(false);
     const navigate = useNavigate();
-
+    console.log(loggedInUser);
     const handleDropDown = () => {
         setOpen(!isOpen);
     };
@@ -53,13 +53,29 @@ const NavigationDropdown = ({ handleScreen }) => {
                     }`}
             >
                 <ul className=" z-10 w-44 bg-white rounded divide-y divide-gray-300 shadow ">
-                    <li
-                        onClick={handleDropDown}
-                    >
-                        <Link to="/dashboard" className="block py-2 px-4 hover:bg-gray-100">
-                            Dashboard
-                        </Link>
-                    </li>
+                    {
+                        loggedInUser?.result?.user?.role === "user" && (
+                            <li
+                                onClick={handleDropDown}
+                            >
+                                <Link to="/dashboard" className="block py-2 px-4 hover:bg-gray-100">
+                                    Dashboard
+                                </Link>
+                            </li>
+                        )
+                    }
+
+                    {
+                        loggedInUser?.result?.user?.role === "admin" && (
+                            <li
+                                onClick={handleDropDown}
+                            >
+                                <Link to="/admin-dashboard" className="block py-2 px-4 hover:bg-gray-100">
+                                    Admin Dashboard
+                                </Link>
+                            </li>
+                        )
+                    }
                     <li
                     >
                         <div className="block py-2 px-4">

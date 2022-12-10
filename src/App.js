@@ -21,6 +21,7 @@ import SelectPaymentMethodPopup from './Pages/TouupPage/SelectPaymentMethodPopup
 import UserDash from './Pages/Dashboard/UserDash';
 import Checkout from './Pages/TouupPage/Checkout';
 import PaymentVerify from './Pages/TouupPage/PaymentVerify';
+import AdminDash from './Pages/Dashboard/Admin/AdminDash';
 
 const dataContext = createContext();
 function App() {
@@ -120,6 +121,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/dashboard' element={<UserDash />} />
+          <Route path='/admin-dashboard' element={<AdminDash />} />
         </Routes>
         <MessengerCustomerChat
           pageId="107411695538516"

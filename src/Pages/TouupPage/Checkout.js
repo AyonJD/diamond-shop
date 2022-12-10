@@ -49,6 +49,7 @@ const Checkout = () => {
         }
 
         if (!user || !service || !pack || !gameInfo || !selectedService) {
+            console.log(user, service, pack, gameInfo, selectedService)
             toast.error('Something went wrong, please try again later');
             return;
         }
