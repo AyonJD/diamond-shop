@@ -9,6 +9,11 @@ import controller from '../../../Asset/control.png'
 import { dataContext } from "../../../App";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { useEffect } from "react";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+
+
 const AdminDash = () => {
     const [open, setOpen] = useState(false);
     const [renderItem, setRenderItem] = useState(1);
@@ -196,13 +201,26 @@ const AllUser = () => {
 
 const ManageOrder = () => {
     const { usersOrder, loggedInUser } = useContext(dataContext)
+    const [allOrder, setAllOrder] = useState([])
     const navigate = useNavigate();
+
+    const getAllOrder = async () => {
+        const response = await fetch(`https://sourav-shop-server.up.railway.app/api/v1/auth/payment`);
+        const data = await response.json();
+        setAllOrder(data?.result)
+    }
+
+    useEffect(() => {
+        getAllOrder()
+    }, [])
+
+    console.log(allOrder)
 
     return (
         <div>
-            <h1 className="text-2xl font-medium mb-4">My Order</h1>
+            <h1 className="text-2xl font-medium mb-4">{allOrder?.length} total order</h1>
             {
-                usersOrder?.result?.length === 0 ? <h1 className="text-center text-2xl my-10 font-medium">No Order Found</h1> : (
+                allOrder?.length === 0 ? <h1 className="text-center text-2xl my-10 font-medium">No Order Found</h1> : (
                     <div className="w-full handle_table_height overflow-y-auto pb-5">
                         <div className="overflow-x-auto">
                             <table className="table table-zebra table-compact w-full">
@@ -211,37 +229,39 @@ const ManageOrder = () => {
                                         <th>#</th>
                                         <th>Name</th>
                                         <th>Amount</th>
-                                        <th>Order ID</th>
-                                        <th>Order Status</th>
-                                        <th>Order Time</th>
+                                        <th>Payment Method</th>
+                                        <th>Payment Number</th>
+                                        <th>Payment Time</th>
+                                        <th>Payment Date</th>
+                                        <th>Transaction Number</th>
+                                        <th>Details</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {
-                                        usersOrder?.result?.map((order, index) => {
+                                        allOrder?.map((order, index) => {
                                             return (
                                                 <tr className="hover" key={index}>
                                                     <td className="font-medium">{index + 1}</td>
-                                                    <td className="font-medium">{loggedInUser?.result?.user?.userName}</td>
+                                                    <td className="font-medium">{order?.user?.userName}</td>
                                                     <td className="font-medium">
-                                                        {order?.pack?.price}
+                                                        {order?.paymentAmount}
                                                         <sup className='text-red-600 font-bold ml-1'>BDT</sup>
                                                     </td>
-                                                    <td className="font-medium">{order?.invoiceId}</td>
-                                                    <td className="font-medium">{order?.paymentStatus}</td>
+                                                    <td className="font-medium">{order?.paymentMethod}</td>
+                                                    <td className="font-medium">{order?.paymentNumber}</td>
                                                     <td className="font-medium">{order?.paymentTime}</td>
+                                                    <td className="font-medium">{order?.paymentDate?.split("T")[0]}</td>
+                                                    <td className="font-medium">{order?.paymentTrxNumber}</td>
+                                                    <td className="font-medium">
+                                                        <button className=' btn-xs bg-white border border-[#37BC96] rounded-sm font-bold text-[#37BC96] hover:bg-[#37BC96] hover:text-white transition-all delay-75 ease-in-out'>See Details</button>
+                                                    </td>
                                                     <td>
-                                                        {
-                                                            order?.paymentStatus === "Pending" ? (
-                                                                <button
-                                                                    onClick={() => navigate(`/payment/${order._id}/${order?.invoiceId}`)} className="text-white bg-[#37BC96] px-4 py-1 rounded-sm hover:bg-transparent border border-transparent hover:border-[#37BC96] hover:border hover:text-[#37BC96] w-[90px] font-semibold">Pay Now</button>
-                                                            ) : (
-                                                                <button
-                                                                    disabled={true}
-                                                                    onClick={() => navigate(`/payment/${order?.invoiceId}`)} className="text-white bg-slate-300 px-4 py-1 rounded-sm border border-transparent font-semibold w-[90px]">Paied</button>
-                                                            )
-                                                        }
+                                                        <Popup className="popup_content" trigger={<button className=' btn-xs bg-[#37BC96] rounded-sm font-bold text-white'>Take Action</button>} position="left center">
+                                                            <button className=' btn-outline bg-[#37BC96] text-white font-semibold btn-sm w-[150px] mt-2 ml-2'>Make Admin</button>
+                                                            <button className=' btn-outline bg-[#37BC96] text-white font-semibold btn-sm mt-5 w-[150px] mb-2 ml-2'>Confirm Order</button>
+                                                        </Popup>
                                                     </td>
                                                 </tr>
                                             )
