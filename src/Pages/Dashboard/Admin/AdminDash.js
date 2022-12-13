@@ -214,7 +214,46 @@ const ManageOrder = () => {
         getAllOrder()
     }, [])
 
-    console.log(allOrder)
+    // Success Order shipment
+    const updateOrderStatus = async (order) => {
+        const { pack, user, gameInfo, service, paymentAmount, paymentNumber, paymentTrxNumber, invoiceId, paymentMethod, paymentStatus, paymentDate, paymentTime } = order;
+        const dataToInsert = {
+            user,
+            gameInfo,
+            service,
+            pack,
+            invoiceId,
+            paymentMethod,
+            paymentStatus,
+            paymentDate,
+            paymentTime,
+            paymentAmount,
+            paymentNumber,
+            paymentTrxNumber,
+            confirmStatus: 'Success'
+        };
+
+        try {
+            const response = await fetch(`https://sourav-shop-server.up.railway.app/api/v1/auth/payment/${order?._id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(dataToInsert)
+            })
+            const data = await response.json()
+            if (data.success) {
+                toast.success('Order status updated successfully.')
+                // setTimeout(() => {
+                //     window.location.reload()
+                // }, 1000)
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
 
     return (
         <div>
@@ -231,9 +270,10 @@ const ManageOrder = () => {
                                         <th>Amount</th>
                                         <th>Payment Method</th>
                                         <th>Payment Number</th>
-                                        <th>Payment Time</th>
                                         <th>Payment Date</th>
                                         <th>Transaction Number</th>
+                                        <th>User Payment</th>
+                                        <th>Shipment</th>
                                         <th>Details</th>
                                         <th>Action</th>
                                     </tr>
@@ -251,16 +291,19 @@ const ManageOrder = () => {
                                                     </td>
                                                     <td className="font-medium">{order?.paymentMethod}</td>
                                                     <td className="font-medium">{order?.paymentNumber}</td>
-                                                    <td className="font-medium">{order?.paymentTime}</td>
                                                     <td className="font-medium">{order?.paymentDate?.split("T")[0]}</td>
                                                     <td className="font-medium">{order?.paymentTrxNumber}</td>
+                                                    <td className="font-medium">{order?.paymentStatus}</td>
+                                                    <td className="font-medium">{order?.confirmStatus}</td>
                                                     <td className="font-medium">
                                                         <button className=' btn-xs bg-white border border-[#37BC96] rounded-sm font-bold text-[#37BC96] hover:bg-[#37BC96] hover:text-white transition-all delay-75 ease-in-out'>See Details</button>
                                                     </td>
                                                     <td>
                                                         <Popup className="popup_content" trigger={<button className=' btn-xs bg-[#37BC96] rounded-sm font-bold text-white'>Take Action</button>} position="left center">
-                                                            <button className=' btn-outline bg-[#37BC96] text-white font-semibold btn-sm w-[150px] mt-2 ml-2'>Make Admin</button>
-                                                            <button className=' btn-outline bg-[#37BC96] text-white font-semibold btn-sm mt-5 w-[150px] mb-2 ml-2'>Confirm Order</button>
+                                                            <button className=' btn-outline bg-[#37BC96] text-white font-semibold btn-sm w-[150px] mb-2 mt-2 ml-2'>Confirm Payment</button>
+                                                            <button className=' btn-outline bg-[#dd0a5b] text-white font-semibold btn-sm w-[150px]  ml-2'>Failed Payment</button>
+                                                            <button onClick={() => updateOrderStatus(order)} className=' btn-outline bg-[#37BC96] text-white font-semibold btn-sm mt-5 w-[150px] mb-2 ml-2'>Confirm Order</button>
+                                                            <button className=' btn-outline bg-[#dd0a5b] text-white font-semibold btn-sm w-[150px] mb-2 ml-2'>Failed Order</button>
                                                         </Popup>
                                                     </td>
                                                 </tr>
