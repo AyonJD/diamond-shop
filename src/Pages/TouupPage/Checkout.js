@@ -17,7 +17,6 @@ const Checkout = () => {
     const navigate = useNavigate();
     const { usersOrder, loggedInUser } = useContext(dataContext);
     const { register, formState: { errors }, handleSubmit, trigger, reset } = useForm();
-    const willPaymentFor = usersOrder?.result?.find(order => order.invoiceId === invoiceId);
     const selectedService = JSON.parse(localStorage.getItem('selectedService'));
     const localPackage = localStorage.getItem('selectedPackage');
     const playerId = localStorage.getItem('playerId');
@@ -142,7 +141,7 @@ const Checkout = () => {
                     </div>
                     <div className='flex'>
                         <h1 className='text-[1.5rem] font-[800]'>৳</h1>
-                        <h1 className='text-[1.5rem] font-bold ml-1'>{willPaymentFor?.paymentAmount}</h1>
+                        <h1 className='text-[1.5rem] font-bold ml-1'>{pack.price}</h1>
                     </div>
                 </div>
                 <form
@@ -191,7 +190,7 @@ const Checkout = () => {
                                 <FaCopy onClick={handleCopy} className='ml-2 cursor-pointer' /></span>
                         </li>
                         <li className='text-justify flex items-center'>
-                            ৪) টাকার পরিমাণঃ <span className='text-lg font-semibold text-yellow-300 ml-2'>{willPaymentFor?.paymentAmount}</span>
+                            ৪) টাকার পরিমাণঃ <span className='text-lg font-semibold text-yellow-300 ml-2'>{pack.price}</span>
                         </li>
                         <li className='text-justify flex items-center'>
                             ৫) এখন নিশ্চিত করতে আপনার {method === 'bkash' ? 'বিকাশ' : method === 'rocket' ? 'রকেট' : method === 'nagad' ? 'নগদ' : ''} পিন লিখুন।
