@@ -215,8 +215,8 @@ const ManageOrder = () => {
     }, [])
 
     // Success Order shipment
-    const updateOrderStatus = async (order) => {
-        const { pack, user, gameInfo, service, paymentAmount, paymentNumber, paymentTrxNumber, invoiceId, paymentMethod, paymentStatus, paymentDate, paymentTime } = order;
+    const updateOrderStatus = async (order, status, newPaymentStatus) => {
+        const { pack, user, gameInfo, service, paymentAmount, paymentNumber, paymentTrxNumber, invoiceId, paymentMethod, paymentStatus, paymentDate, paymentTime, confirmStatus } = order;
         const dataToInsert = {
             user,
             gameInfo,
@@ -224,13 +224,13 @@ const ManageOrder = () => {
             pack,
             invoiceId,
             paymentMethod,
-            paymentStatus,
+            paymentStatus: newPaymentStatus,
             paymentDate,
             paymentTime,
             paymentAmount,
             paymentNumber,
             paymentTrxNumber,
-            confirmStatus: 'Success'
+            confirmStatus: status
         };
 
         try {
@@ -300,10 +300,18 @@ const ManageOrder = () => {
                                                     </td>
                                                     <td>
                                                         <Popup className="popup_content" trigger={<button className=' btn-xs bg-[#37BC96] rounded-sm font-bold text-white'>Take Action</button>} position="left center">
-                                                            <button className=' btn-outline bg-[#37BC96] text-white font-semibold btn-sm w-[150px] mb-2 mt-2 ml-2'>Confirm Payment</button>
-                                                            <button className=' btn-outline bg-[#dd0a5b] text-white font-semibold btn-sm w-[150px]  ml-2'>Failed Payment</button>
-                                                            <button onClick={() => updateOrderStatus(order)} className=' btn-outline bg-[#37BC96] text-white font-semibold btn-sm mt-5 w-[150px] mb-2 ml-2'>Confirm Order</button>
-                                                            <button className=' btn-outline bg-[#dd0a5b] text-white font-semibold btn-sm w-[150px] mb-2 ml-2'>Failed Order</button>
+                                                            <button
+                                                                onClick={() => updateOrderStatus(order, order.confirmStatus, 'Success')}
+                                                                className=' btn-outline bg-[#37BC96] text-white font-semibold btn-sm w-[150px] mb-2 mt-2 ml-2'>Confirm Payment</button>
+                                                            <button
+                                                                onClick={() => updateOrderStatus(order, order.confirmStatus, 'Failed')}
+                                                                className=' btn-outline bg-[#dd0a5b] text-white font-semibold btn-sm w-[150px]  ml-2'>Failed Payment</button>
+                                                            <button
+                                                                onClick={() => updateOrderStatus(order, 'Success', order.paymentStatus)}
+                                                                className=' btn-outline bg-[#37BC96] text-white font-semibold btn-sm mt-5 w-[150px] mb-2 ml-2'>Confirm Order</button>
+                                                            <button
+                                                                onClick={() => updateOrderStatus(order, 'Failed', order.paymentStatus)}
+                                                                className=' btn-outline bg-[#dd0a5b] text-white font-semibold btn-sm w-[150px] mb-2 ml-2'>Failed Order</button>
                                                         </Popup>
                                                     </td>
                                                 </tr>

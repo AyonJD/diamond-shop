@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FaCopy } from 'react-icons/fa';
 import { dataContext } from '../../App';
@@ -9,6 +9,9 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
 const Checkout = () => {
+    const [bkashNumber, setBkashNumber] = useState('01920204818');
+    const [rocketNumber, setRocketNumber] = useState('01720208796');
+    const [nagadNumber, setNagadNumber] = useState('01520248718');
     const invoiceId = useParams().id;
     const { orderId } = useParams();
     const navigate = useNavigate();
@@ -61,7 +64,7 @@ const Checkout = () => {
             pack,
             invoiceId,
             paymentMethod: method,
-            paymentStatus: 'Success',
+            paymentStatus: 'Pending',
             paymentDate: new Date(),
             paymentTime: getCurrentTime(),
             paymentAmount: pack.price,
@@ -86,7 +89,39 @@ const Checkout = () => {
         } else {
             toast.error('Payment Failed');
         }
+    };
+
+    const handleCopy = () => {
+        if (window.location.href.includes('bkash')) {
+            navigator.clipboard.writeText(bkashNumber);
+        } else if (window.location.href.includes('rocket')) {
+            navigator.clipboard.writeText(rocketNumber);
+        } else if (window.location.href.includes('nagad')) {
+            navigator.clipboard.writeText(nagadNumber);
+        }
+        toast.success('Number Copied');
+    };
+
+    const handleNumber = async () => {
+        const response = await fetch(`https://sourav-shop-server.up.railway.app/api/v1/auth/number`);
+        const result = await response.json();
+        if (result.success) {
+            result?.result?.map(number => {
+                if (number.provider === '"Bkash"') {
+                    setBkashNumber(number.number);
+                } else if (number.provider === 'Rocket') {
+                    setRocketNumber(number.number);
+                } else if (number.provider === 'Nagad') {
+                    setNagadNumber(number.number);
+                }
+            })
+        }
+
     }
+
+    useEffect(() => {
+        handleNumber();
+    }, []);
 
     return (
         <div className=''>
@@ -151,7 +186,9 @@ const Checkout = () => {
                             ২) <span className='text-lg font-semibold text-yellow-300'>"Send Money"</span> - তে ক্লিক করুন।
                         </li>
                         <li className='text-justify flex items-center'>
-                            ৩) প্রাপক নম্বর হিসেবে এই নম্বরটি লিখুনঃ <span className='flex ml-2 items-center text-lg font-semibold text-yellow-300'>01920204818 <FaCopy className='ml-2 cursor-pointer' /></span>
+                            ৩) প্রাপক নম্বর হিসেবে এই নম্বরটি লিখুনঃ <span className='flex ml-2 items-center text-lg font-semibold text-yellow-300'>
+                                {method === 'bkash' ? bkashNumber : method === 'rocket' ? rocketNumber : method === 'nagad' ? nagadNumber : ''}
+                                <FaCopy onClick={handleCopy} className='ml-2 cursor-pointer' /></span>
                         </li>
                         <li className='text-justify flex items-center'>
                             ৪) টাকার পরিমাণঃ <span className='text-lg font-semibold text-yellow-300 ml-2'>{willPaymentFor?.paymentAmount}</span>

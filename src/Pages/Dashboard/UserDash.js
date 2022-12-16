@@ -142,7 +142,7 @@ const MyOrder = () => {
                                                     <td className="font-medium">{order?.paymentTime}</td>
                                                     <td>
                                                         {
-                                                            order?.paymentStatus === "Pending" ? (
+                                                            order?.paymentStatus === "Not Paied" ? (
                                                                 <button
                                                                     onClick={() => navigate(`/payment/${order._id}/${order?.invoiceId}`)} className="text-white bg-[#37BC96] px-4 py-1 rounded-sm hover:bg-transparent border border-transparent hover:border-[#37BC96] hover:border hover:text-[#37BC96] w-[90px] font-semibold">Pay Now</button>
                                                             ) : (

@@ -7,15 +7,15 @@ import paymentImage from '../../Asset/payment.png';
 const PaymentMethod = () => {
     const { register, formState: { errors }, handleSubmit, trigger, reset } = useForm();
     const navigate = useNavigate();
-    const invoiceId = useParams().id;
+    const paymentId = useParams().id;
     const { serviceId } = useParams();
-    const { loggedInUser, selectedService, setSelectedService, usersOrder } = useContext(dataContext);
+    const { loggedInUser, selectedService, setSelectedService } = useContext(dataContext);
     const localPackage = localStorage.getItem('selectedPackage');
     const gameInfo = localStorage.getItem('gameInfo');
     const gameInfoObj = JSON.parse(gameInfo);
     const pack = JSON.parse(localPackage);
 
-    const orderId = usersOrder?.result?.find(order => order.invoiceId === invoiceId)?._id;
+
 
     const getService = async () => {
         try {
@@ -32,10 +32,6 @@ const PaymentMethod = () => {
         getService();
     }, [])
 
-    const handlePayment = () => {
-        navigate(`/payment/${orderId}/${invoiceId}`);
-    }
-
     //get current time in 12 hours format
     const getCurrentTime = () => {
         const date = new Date();
@@ -50,7 +46,6 @@ const PaymentMethod = () => {
     }
 
     const handleFormSubmit = async (data) => {
-        handlePayment();
         localStorage.setItem('selectedService', JSON.stringify(selectedService));
         const user = await loggedInUser.result.user;
         const service = await selectedService.result;
@@ -61,9 +56,9 @@ const PaymentMethod = () => {
             gameInfo: gameInfoObj,
             service,
             pack,
-            invoiceId,
+            invoiceId: paymentId,
             paymentMethod: 'Bkash',
-            paymentStatus: 'Pending',
+            paymentStatus: 'Not Paied',
             paymentDate: new Date(),
             paymentTime: getCurrentTime(),
             paymentAmount: pack.price,
@@ -83,7 +78,8 @@ const PaymentMethod = () => {
         const result = await response.json();
         console.log(result);
         if (result.success) {
-
+            const orderId = result.result._id;
+            navigate(`/payment/${orderId}/${paymentId}`);
         } else {
 
         }
