@@ -378,7 +378,7 @@ const UpdatePhone = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                number: bkashNumber
+                number: rocketNumber
             })
         })
         const data = await res.json()
@@ -394,7 +394,7 @@ const UpdatePhone = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                number: bkashNumber
+                number: nagadNumber
             })
         })
         const data = await res.json()
