@@ -339,8 +339,93 @@ const CreateNotification = () => {
 }
 
 const UpdatePhone = () => {
+    const [number, setNumber] = useState([])
+    const [bkashNumber, setBkashNumber] = useState('')
+    const [rocketNumber, setRocketNumber] = useState('')
+    const [nagadNumber, setNagadNumber] = useState('')
+
+    const getAllNumber = async () => {
+        const res = await fetch(`https://sourav-shop-server.up.railway.app/api/v1/auth/number`)
+        const data = await res.json()
+        setNumber(data?.result)
+    };
+
+    useEffect(() => {
+        getAllNumber()
+    }, [])
+
+
+    const handleBkashNumber = async (id) => {
+        const res = await fetch(`https://sourav-shop-server.up.railway.app/api/v1/auth/number/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                number: bkashNumber
+            })
+        })
+        const data = await res.json()
+        if (data.success) {
+            toast.success('Bkash Number Updated Successfully')
+        }
+    };
+
+    const handleRocketNumber = async (id) => {
+        const res = await fetch(`https://sourav-shop-server.up.railway.app/api/v1/auth/number/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                number: bkashNumber
+            })
+        })
+        const data = await res.json()
+        if (data.success) {
+            toast.success('Rocket Number Updated Successfully')
+        }
+    };
+
+    const handleNagadNumber = async (id) => {
+        const res = await fetch(`https://sourav-shop-server.up.railway.app/api/v1/auth/number/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                number: bkashNumber
+            })
+        })
+        const data = await res.json()
+        if (data.success) {
+            toast.success('Nagad Number Updated Successfully')
+        }
+    }
     return (
-        <div>Update phone</div>
+        <div>
+            <div>
+                <h1 className="text-xl font-medium mb-4">Update Bkash Number</h1>
+                <div className="flex flex-col sm:flex-row sm:items-center">
+                    <input onChange={e => setBkashNumber(e.target.value)} className="p-2 border-[1px] rounded-md sm:rounded-none left_radius focus:border-[#37BC96] focus:outline-none" type="text" />
+                    <button onClick={() => handleBkashNumber('639cbac7ed88a659e6f56746')} className="bg-[#37BC96] w-1/2 rounded-md sm:rounded-none sm:w-auto right_radius text-white font-semibold py-2 px-4 mt-3 sm:mt-0 border-[#37BC96] border-[1px]">Update Bkash Number</button>
+                </div>
+            </div>
+            <div className="my-8">
+                <h1 className="text-xl font-medium mb-4">Update Rocket Number</h1>
+                <div className="flex flex-col sm:flex-row sm:items-center">
+                    <input onChange={e => setRocketNumber(e.target.value)} className="p-2 border-[1px] rounded-md sm:rounded-none left_radius focus:border-[#37BC96] focus:outline-none" type="text" />
+                    <button onClick={() => handleRocketNumber('639cbb49ed88a659e6f56749')} className="bg-[#37BC96] w-1/2 rounded-md sm:rounded-none sm:w-auto right_radius text-white font-semibold py-2 px-4 mt-3 sm:mt-0 border-[#37BC96] border-[1px]">Update Rocket Number</button>
+                </div>
+            </div>
+            <div>
+                <h1 className="text-xl font-medium mb-4">Update Nagad Number</h1>
+                <div className="flex flex-col sm:flex-row sm:items-center">
+                    <input onChange={e => setNagadNumber(e.target.value)} className="p-2 border-[1px] rounded-md sm:rounded-none left_radius focus:border-[#37BC96] focus:outline-none" type="text" />
+                    <button onClick={() => handleNagadNumber('639cbb57ed88a659e6f5674b')} className="bg-[#37BC96] w-1/2 rounded-md sm:rounded-none sm:w-auto right_radius text-white font-semibold py-2 px-4 mt-3 sm:mt-0 border-[#37BC96] border-[1px]">Update Nagad Number</button>
+                </div>
+            </div>
+        </div>
     )
 }
 

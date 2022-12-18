@@ -295,7 +295,14 @@ body {
   position: static !important;
 }
 
-
+.left_radius{
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.right_radius{
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
 
 
 ::-webkit-scrollbar{
