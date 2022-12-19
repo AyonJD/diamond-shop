@@ -331,9 +331,46 @@ const ManageOrder = () => {
 };
 
 const CreateNotification = () => {
+    const [notification, setNotification] = useState('');
+    const handleNotificationSubmit = async (e) => {
+        e.preventDefault();
+        if (notification === '') {
+            toast.error('Please type something.')
+            return;
+        }
+        if (notification.length < 20) {
+            toast.error('Notification must be minimum 20 characters.')
+            return;
+        }
+
+        const res = await fetch('https://sourav-shop-server.up.railway.app/api/v1/auth/notification', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+
+            },
+            body: JSON.stringify({
+                details: notification
+            })
+        })
+        const data = await res.json();
+
+
+        if (data.success) {
+            toast.success('Notification created successfully.')
+            setNotification('');
+        } else {
+            toast.error('Something went wrong.')
+            console.log(data)
+        }
+    }
     return (
         <div>
-            <h1 className="text-2xl font-medium mb-4">Create Notification</h1>
+            <h1 className="text-2xl text-center font-medium mb-4">Create Notification</h1>
+            <form onSubmit={handleNotificationSubmit} className="w-full sm:w-2/3 mx-auto">
+                <textarea onChange={(e) => setNotification(e.target.value)} className="w-full p-5 border-2 border-slate-300 focus:border-[#37BC96] focus:outline-none rounded-sm" name="" id="" cols="20" rows="6" placeholder="Type here..."></textarea>
+                <button type="submit" className=' px-5 py-2 rounded-sm mt-2 bg-[#37BC96] text-white font-semibold'>Create Notification</button>
+            </form>
         </div>
     )
 }

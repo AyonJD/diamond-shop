@@ -11,7 +11,8 @@ function Navigation() {
   const [openDrawer, toggleDrawer] = useState(false);
   const drawerRef = useRef(null);
   const navigate = useNavigate();
-  const { token, setToken } = useContext(dataContext);
+  const { token, setToken, setNotificationPopup } = useContext(dataContext);
+  const [notificationCounter, setNotificationCounter] = useState(true);
 
   useEffect(() => {
     const closeDrawer = (event) => {
@@ -82,9 +83,16 @@ function Navigation() {
 
       <div className="flex items-start">
         {/* Login Logout button */}
-        <div className="mt-[10px] sm:mt-[4px] relative w-fit">
-          <BsFillBellFill className="h-5 w-5 mr-3" />
-          <small className="text-white text-[10px] bg-red-500 px-1 rounded-full absolute top-[-8px] right-2">3</small>
+        <div onClick={() => {
+          setNotificationPopup(true);
+          setNotificationCounter(false);
+        }} className="mt-[10px] sm:mt-[4px] relative w-fit">
+          <BsFillBellFill className="h-5 w-5 mr-3 cursor-pointer" />
+          {
+            notificationCounter && (
+              <small className="text-white text-[10px] bg-red-500 px-1 rounded-full absolute top-[-8px] right-2">1</small>
+            )
+          }
         </div>
 
         {token && <NavigationDropdown handleScreen="include_sm_show" />}

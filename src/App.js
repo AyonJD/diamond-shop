@@ -22,6 +22,7 @@ import UserDash from './Pages/Dashboard/UserDash';
 import Checkout from './Pages/TouupPage/Checkout';
 import PaymentVerify from './Pages/TouupPage/PaymentVerify';
 import AdminDash from './Pages/Dashboard/Admin/AdminDash';
+import NotificationPopup from './Components/Shared/Popup/NotificationPopup';
 
 const dataContext = createContext();
 function App() {
@@ -35,6 +36,7 @@ function App() {
   const [allOrders, setAllOrders] = useState([]);
   const [usersOrder, setUsersOrder] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
+  const [notificationPopup, setNotificationPopup] = useState(false);
 
   const getAllUser = async () => {
     try {
@@ -114,12 +116,15 @@ function App() {
     setSelectedService,
     usersOrder,
     allUsers,
+    notificationPopup,
+    setNotificationPopup,
   }
 
   return (
     <div>
       <dataContext.Provider value={dataObject}>
         {openWelcomePopup && <Popup popupData={POPUP_DATA} setOpenPopup={setOpenWelcomePopup} />}
+        {notificationPopup && <NotificationPopup setOpenPopup={setNotificationPopup} />}
         <Navigation />
         <Routes>
           <Route path='/' element={<LandingPage />} />
