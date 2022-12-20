@@ -82,6 +82,7 @@ function Navigation() {
       </div>
 
       <div className="flex items-start">
+        
         {/* Login Logout button */}
         <div onClick={() => {
           setNotificationPopup(true);
