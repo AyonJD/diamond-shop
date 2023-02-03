@@ -40,7 +40,7 @@ function App() {
 
   const getAllUser = async () => {
     try {
-      const res = await fetch('https://sourav-shop-server.up.railway.app/api/v1/auth/user');
+      const res = await fetch('https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/user');
       const data = await res.json();
       setAllUsers(data);
     } catch (error) {
@@ -50,7 +50,7 @@ function App() {
 
   const getAllOrderOfUser = async () => {
     try {
-      const res = await fetch('https://sourav-shop-server.up.railway.app/api/v1/auth/payment/my-orders', {
+      const res = await fetch('https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/payment/my-orders', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -66,7 +66,7 @@ function App() {
 
   const getLoggedInUser = async () => {
     try {
-      const url = `https://sourav-shop-server.up.railway.app/api/v1/auth/user/${userId}`
+      const url = `https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/user/${userId}`
       const res = await fetch(url)
 
       const parseData = await res.json();
@@ -78,7 +78,7 @@ function App() {
 
   const getAllService = async () => {
     try {
-      const res = await fetch("https://sourav-shop-server.up.railway.app/api/v1/auth/service");
+      const res = await fetch("https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/service");
       const parseData = await res.json();
       setServices(parseData);
     } catch (err) {

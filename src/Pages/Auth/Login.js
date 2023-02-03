@@ -33,7 +33,7 @@ const Login = () => {
             isGoogleUser: true
         }
 
-        const url = 'https://sourav-shop-server.up.railway.app/api/v1/auth/user/signup';
+        const url = 'https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/user/signup';
         const responseFromDB = await fetch(url, {
             method: 'POST',
             headers: {
@@ -61,7 +61,7 @@ const Login = () => {
             password: data.password,
             userName: data.user_or_email,
         }
-        const url = 'https://sourav-shop-server.up.railway.app/api/v1/auth/user/login';
+        const url = 'https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/user/login';
         const response = await fetch(url, {
             method: 'POST',
             headers: {

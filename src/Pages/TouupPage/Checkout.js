@@ -72,7 +72,7 @@ const Checkout = () => {
             confirmStatus: 'Pending'
         }
 
-        const url = `https://sourav-shop-server.up.railway.app/api/v1/auth/payment/${orderId}`;
+        const url = `https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/payment/${orderId}`;
         const res = await fetch(url, {
             method: 'PUT',
             headers: {
@@ -102,7 +102,7 @@ const Checkout = () => {
     };
 
     const handleNumber = async () => {
-        const response = await fetch(`https://sourav-shop-server.up.railway.app/api/v1/auth/number`);
+        const response = await fetch(`https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/number`);
         const result = await response.json();
         if (result.success) {
             result?.result?.map(number => {

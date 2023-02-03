@@ -19,7 +19,7 @@ const PaymentMethod = () => {
 
     const getService = async () => {
         try {
-            const url = `https://sourav-shop-server.up.railway.app/api/v1/auth/service/${serviceId}`
+            const url = `https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/service/${serviceId}`
             const res = await fetch(url);
             const parseData = await res.json();
             // setService(parseData);
@@ -67,7 +67,7 @@ const PaymentMethod = () => {
             confirmStatus: 'Pending'
         }
 
-        const url = 'https://sourav-shop-server.up.railway.app/api/v1/auth/payment'
+        const url = 'https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/payment'
         const response = await fetch(url, {
             method: 'POST',
             headers: {

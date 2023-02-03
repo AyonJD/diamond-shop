@@ -5,7 +5,7 @@ const NotificationPopup = ({ setOpenPopup }) => {
     const [notification, setNotification] = useState([]);
     const getNotification = async () => {
         try {
-            const res = await fetch("https://sourav-shop-server.up.railway.app/api/v1/auth/notification");
+            const res = await fetch("https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/notification");
             const data = await res.json();
             setNotification(data);
         } catch (error) {

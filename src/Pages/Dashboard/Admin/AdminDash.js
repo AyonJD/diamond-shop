@@ -119,7 +119,7 @@ const AllUser = () => {
 
     const updateUser = async (userId, role) => {
         try {
-            const response = await fetch(`https://sourav-shop-server.up.railway.app/api/v1/auth/user/${userId}`, {
+            const response = await fetch(`https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/user/${userId}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -205,7 +205,7 @@ const ManageOrder = () => {
     const navigate = useNavigate();
 
     const getAllOrder = async () => {
-        const response = await fetch(`https://sourav-shop-server.up.railway.app/api/v1/auth/payment`);
+        const response = await fetch(`https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/payment`);
         const data = await response.json();
         setAllOrder(data?.result)
     }
@@ -234,7 +234,7 @@ const ManageOrder = () => {
         };
 
         try {
-            const response = await fetch(`https://sourav-shop-server.up.railway.app/api/v1/auth/payment/${order?._id}`, {
+            const response = await fetch(`https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/payment/${order?._id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -343,7 +343,7 @@ const CreateNotification = () => {
             return;
         }
 
-        const res = await fetch('https://sourav-shop-server.up.railway.app/api/v1/auth/notification', {
+        const res = await fetch('https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/notification', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -382,7 +382,7 @@ const UpdatePhone = () => {
     const [nagadNumber, setNagadNumber] = useState('')
 
     const getAllNumber = async () => {
-        const res = await fetch(`https://sourav-shop-server.up.railway.app/api/v1/auth/number`)
+        const res = await fetch(`https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/number`)
         const data = await res.json()
         setNumber(data?.result)
     };
@@ -393,7 +393,7 @@ const UpdatePhone = () => {
 
 
     const handleBkashNumber = async (id) => {
-        const res = await fetch(`https://sourav-shop-server.up.railway.app/api/v1/auth/number/${id}`, {
+        const res = await fetch(`https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/number/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -409,7 +409,7 @@ const UpdatePhone = () => {
     };
 
     const handleRocketNumber = async (id) => {
-        const res = await fetch(`https://sourav-shop-server.up.railway.app/api/v1/auth/number/${id}`, {
+        const res = await fetch(`https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/number/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -425,7 +425,7 @@ const UpdatePhone = () => {
     };
 
     const handleNagadNumber = async (id) => {
-        const res = await fetch(`https://sourav-shop-server.up.railway.app/api/v1/auth/number/${id}`, {
+        const res = await fetch(`https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/number/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'

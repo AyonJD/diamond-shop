@@ -22,7 +22,7 @@ const TopupDetails = () => {
 
     const getService = async () => {
         try {
-            const url = `https://sourav-shop-server.up.railway.app/api/v1/auth/service/${id}`
+            const url = `https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/service/${id}`
             const res = await fetch(url);
             const parseData = await res.json();
             setService(parseData);
@@ -194,19 +194,19 @@ const TopupDetails = () => {
                                     })
                                 }
                             </div>
-                            
+
+                        </div>
+                        <div className="border mt-10 py-4 rounded-md bg-white">
+                            <div className="border-b pb-3 px-4">
+                                <h1 className='inline-block text-2xl font-bold text-white bg-[#37BC96] px-[10px] align-middle rounded-full'>3</h1>
+                                <h1 className='inline-block ml-2 font-semibold'>PAYMENT</h1>
                             </div>
-                            <div className="border mt-10 py-4 rounded-md bg-white">
-                                <div className="border-b pb-3 px-4">
-                                    <h1 className='inline-block text-2xl font-bold text-white bg-[#37BC96] px-[10px] align-middle rounded-full'>3</h1>
-                                    <h1 className='inline-block ml-2 font-semibold'>PAYMENT</h1>
-                                </div>
-                                <h1 className='my-2 px-4 font-medium'>You will need BDT {!checkSelectedPackage() ? '0' : selectedPackage?.price} to parse the package</h1>
-                                <button
-                                    disabled={!checkSelectedPackage()}
-                                    onClick={generatePaymentId}
-                                    className={`ml-4  text-white border border-transparent font-semibold px-10 py-2 rounded-md  ${!checkSelectedPackage() ? 'bg-slate-300' : 'bg-[#37BC96] hover:bg-transparent hover:border-[#37BC96] hover:border hover:text-[#37BC96] delay-100 transition-all ease-out'}`}>Buy Now</button>
-                            </div>
+                            <h1 className='my-2 px-4 font-medium'>You will need BDT {!checkSelectedPackage() ? '0' : selectedPackage?.price} to parse the package</h1>
+                            <button
+                                disabled={!checkSelectedPackage()}
+                                onClick={generatePaymentId}
+                                className={`ml-4  text-white border border-transparent font-semibold px-10 py-2 rounded-md  ${!checkSelectedPackage() ? 'bg-slate-300' : 'bg-[#37BC96] hover:bg-transparent hover:border-[#37BC96] hover:border hover:text-[#37BC96] delay-100 transition-all ease-out'}`}>Buy Now</button>
+                        </div>
                     </div>
                 )
             }

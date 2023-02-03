@@ -29,7 +29,7 @@ const Signup = () => {
             userName: data.userName,
             role: 'user'
         }
-        const url = 'https://sourav-shop-server.up.railway.app/api/v1/auth/user/signup';
+        const url = 'https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/user/signup';
         const response = await fetch(url, {
             method: 'POST',
             headers: {
