@@ -295,23 +295,38 @@ body {
   position: static !important;
 }
 
-.left_radius{
+.left_radius {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
-.right_radius{
+
+.right_radius {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
 
 
-::-webkit-scrollbar{
+.customInputClass {
+  transition: all 150ms ease-in-out;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.01), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border: 1px solid #dbdbdb !important;
+}
+
+.customInputClass:focus {
+  outline: none;
+  border: 1px solid #000;
+  box-shadow: 0 0 0 0.2rem rgb(0, 123, 255);
+}
+
+::-webkit-scrollbar {
   width: 7px;
 }
-::-webkit-scrollbar-thumb{
+
+::-webkit-scrollbar-thumb {
   background: linear-gradient(transparent, #008660);
   border-radius: 6px;
 }
-::-webkit-scrollbar-thumb:hover{
+
+::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(transparent, #00c6ff)
 }

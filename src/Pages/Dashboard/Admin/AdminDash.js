@@ -12,6 +12,10 @@ import { toast } from "react-hot-toast";
 import { useEffect } from "react";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import BkashAlert from "../../../Components/Shared/Popup/BkashAlert";
+import { constant_password } from "../../../Utils/Constant";
+import RocketAlert from "../../../Components/Shared/Popup/RocketAlert";
+import NagadAlert from "../../../Components/Shared/Popup/NagadAlert";
 
 
 const AdminDash = () => {
@@ -25,6 +29,7 @@ const AdminDash = () => {
         { title: "Manage Order", src: <RiSecurePaymentFill className="h-6 w-6" />, id: 3 },
         { title: "Create Notification", src: <VscGitPullRequestCreate className="h-6 w-6" />, id: 4 },
         { title: "Update Phone", src: <HiOutlinePhoneIncoming className="h-6 w-6" />, id: 5 },
+        { title: "Product List", src: <HiOutlinePhoneIncoming className="h-6 w-6" />, id: 6 },
     ];
 
     return (
@@ -91,6 +96,7 @@ const AdminDash = () => {
                     {renderItem === 3 && <ManageOrder loggedInUser={loggedInUser} />}
                     {renderItem === 4 && <CreateNotification loggedInUser={loggedInUser} />}
                     {renderItem === 5 && <UpdatePhone loggedInUser={loggedInUser} />}
+                    {renderItem === 6 && <UpdatePhone loggedInUser={loggedInUser} />}
                 </div>
             </div>
         </>
@@ -380,6 +386,9 @@ const UpdatePhone = () => {
     const [bkashNumber, setBkashNumber] = useState('')
     const [rocketNumber, setRocketNumber] = useState('')
     const [nagadNumber, setNagadNumber] = useState('')
+    const [openBkashPopup, setOpenBkashPopup] = useState(false);
+    const [openRocketPopup, setOpenRocketPopup] = useState(false);
+    const [openNagadPopup, setOpenNagadPopup] = useState(false);
 
     const getAllNumber = async () => {
         const res = await fetch(`https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/number`)
@@ -438,31 +447,38 @@ const UpdatePhone = () => {
         if (data.success) {
             toast.success('Nagad Number Updated Successfully')
         }
-    }
+    };
+
     return (
-        <div>
+        <>
             <div>
                 <h1 className="text-xl font-medium mb-4">Update Bkash Number</h1>
                 <div className="flex flex-col sm:flex-row sm:items-center">
                     <input onChange={e => setBkashNumber(e.target.value)} className="p-2 border-[1px] rounded-md sm:rounded-none left_radius focus:border-[#37BC96] focus:outline-none" type="text" />
-                    <button onClick={() => handleBkashNumber('639cbac7ed88a659e6f56746')} className="bg-[#37BC96] w-1/2 rounded-md sm:rounded-none sm:w-auto right_radius text-white font-semibold py-2 px-4 mt-3 sm:mt-0 border-[#37BC96] border-[1px]">Update Bkash Number</button>
+                    <button onClick={() => setOpenBkashPopup(true)} className="bg-[#37BC96] w-1/2 rounded-md sm:rounded-none sm:w-auto right_radius text-white font-semibold py-2 px-4 mt-3 sm:mt-0 border-[#37BC96] border-[1px]">Update Bkash Number</button>
                 </div>
             </div>
             <div className="my-8">
                 <h1 className="text-xl font-medium mb-4">Update Rocket Number</h1>
                 <div className="flex flex-col sm:flex-row sm:items-center">
                     <input onChange={e => setRocketNumber(e.target.value)} className="p-2 border-[1px] rounded-md sm:rounded-none left_radius focus:border-[#37BC96] focus:outline-none" type="text" />
-                    <button onClick={() => handleRocketNumber('639cbb49ed88a659e6f56749')} className="bg-[#37BC96] w-1/2 rounded-md sm:rounded-none sm:w-auto right_radius text-white font-semibold py-2 px-4 mt-3 sm:mt-0 border-[#37BC96] border-[1px]">Update Rocket Number</button>
+                    <button onClick={() => setOpenRocketPopup(true)} className="bg-[#37BC96] w-1/2 rounded-md sm:rounded-none sm:w-auto right_radius text-white font-semibold py-2 px-4 mt-3 sm:mt-0 border-[#37BC96] border-[1px]">Update Rocket Number</button>
                 </div>
             </div>
             <div>
                 <h1 className="text-xl font-medium mb-4">Update Nagad Number</h1>
                 <div className="flex flex-col sm:flex-row sm:items-center">
                     <input onChange={e => setNagadNumber(e.target.value)} className="p-2 border-[1px] rounded-md sm:rounded-none left_radius focus:border-[#37BC96] focus:outline-none" type="text" />
-                    <button onClick={() => handleNagadNumber('639cbb57ed88a659e6f5674b')} className="bg-[#37BC96] w-1/2 rounded-md sm:rounded-none sm:w-auto right_radius text-white font-semibold py-2 px-4 mt-3 sm:mt-0 border-[#37BC96] border-[1px]">Update Nagad Number</button>
+                    <button onClick={() => setOpenNagadPopup(true)} className="bg-[#37BC96] w-1/2 rounded-md sm:rounded-none sm:w-auto right_radius text-white font-semibold py-2 px-4 mt-3 sm:mt-0 border-[#37BC96] border-[1px]">Update Nagad Number</button>
                 </div>
             </div>
-        </div>
+
+            {openBkashPopup && <BkashAlert setBkashNumber={setBkashNumber} handleBkashNumber={handleBkashNumber} setOpenPopup={setOpenBkashPopup} />}
+
+            {openRocketPopup && <RocketAlert setRocketNumber={setRocketNumber} handleRocketNumber={handleRocketNumber} setOpenPopup={setOpenRocketPopup} />}
+
+            {openNagadPopup && <NagadAlert setNagadNumber={setNagadNumber} handleNagadNumber={handleNagadNumber} setOpenPopup={setOpenNagadPopup} />}
+        </>
     )
 }
 
