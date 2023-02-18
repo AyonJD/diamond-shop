@@ -472,7 +472,7 @@ const UpdatePhone = () => {
                     <button onClick={() => setOpenNagadPopup(true)} className="bg-[#37BC96] w-1/2 rounded-md sm:rounded-none sm:w-auto right_radius text-white font-semibold py-2 px-4 mt-3 sm:mt-0 border-[#37BC96] border-[1px]">Update Nagad Number</button>
                 </div>
             </div>
-
+            {/* Popups-----------------> */}
             {openBkashPopup && <BkashAlert setBkashNumber={setBkashNumber} handleBkashNumber={handleBkashNumber} setOpenPopup={setOpenBkashPopup} />}
 
             {openRocketPopup && <RocketAlert setRocketNumber={setRocketNumber} handleRocketNumber={handleRocketNumber} setOpenPopup={setOpenRocketPopup} />}
