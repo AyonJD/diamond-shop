@@ -16,6 +16,7 @@ import BkashAlert from "../../../Components/Shared/Popup/BkashAlert";
 import { constant_password } from "../../../Utils/Constant";
 import RocketAlert from "../../../Components/Shared/Popup/RocketAlert";
 import NagadAlert from "../../../Components/Shared/Popup/NagadAlert";
+import UpdateServicePopup from "../../../Components/Shared/Popup/UpdateServicePopup";
 
 
 const AdminDash = () => {
@@ -96,7 +97,7 @@ const AdminDash = () => {
                     {renderItem === 3 && <ManageOrder loggedInUser={loggedInUser} />}
                     {renderItem === 4 && <CreateNotification loggedInUser={loggedInUser} />}
                     {renderItem === 5 && <UpdatePhone loggedInUser={loggedInUser} />}
-                    {renderItem === 6 && <UpdatePhone loggedInUser={loggedInUser} />}
+                    {renderItem === 6 && <UpdateService loggedInUser={loggedInUser} />}
                 </div>
             </div>
         </>
@@ -478,6 +479,85 @@ const UpdatePhone = () => {
             {openRocketPopup && <RocketAlert setRocketNumber={setRocketNumber} handleRocketNumber={handleRocketNumber} setOpenPopup={setOpenRocketPopup} />}
 
             {openNagadPopup && <NagadAlert setNagadNumber={setNagadNumber} handleNagadNumber={handleNagadNumber} setOpenPopup={setOpenNagadPopup} />}
+        </>
+    )
+}
+
+const UpdateService = () => {
+    const [services, setServices] = useState([])
+    const [servicePopup, setServicePopup] = useState(false)
+    const [singleService, setSingleService] = useState({})
+
+    const getAllServices = async () => {
+        const res = await fetch(`https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/service`)
+        const data = await res.json()
+        setServices(data?.result)
+    };
+
+    useEffect(() => {
+        getAllServices()
+    }, [])
+
+    // console.log(services)
+
+    return (
+        <>
+            <h1 className="text-2xl text-center font-medium mb-4">All Services</h1>
+            {
+                services?.length === 0 ? <h1 className="text-center text-2xl my-10 font-medium">No Service found.</h1> : (
+                    <div className="w-full handle_table_height overflow-y-auto">
+                        <div className="overflow-x-auto">
+                            <table className="table table-zebra table-compact w-full">
+                                <thead className="">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Server Name</th>
+                                        <th>Title </th>
+                                        <th>Packages</th>
+                                        <th>Update</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        services?.map((service, index) => {
+                                            return (
+                                                <tr className="hover" key={index}>
+                                                    <td className="font-medium">{index + 1}</td>
+                                                    <td className="font-medium">{service?.serverName}</td>
+                                                    <td className="font-medium">{service?.title}</td>
+                                                    <td className="font-medium">
+                                                        <ul>
+                                                            {
+                                                                service?.package?.map((pack, index) => {
+                                                                    return (
+                                                                        <li key={index}>{pack?.title} - {pack.price} <span className="text-xl font-bold">&#2547;</span></li>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </ul>
+                                                    </td>
+                                                    <td>
+                                                        <button
+                                                            onClick={() => {
+                                                                setServicePopup(true)
+                                                                setSingleService(service)
+                                                            }}
+                                                            className=' btn-outline bg-[#37BC96] text-white font-semibold btn-sm mt-5 w-[150px] mb-2 ml-2 rounded-sm'>
+                                                            Update Service
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                )
+            }
+
+            {servicePopup && <UpdateServicePopup setOpenPopup={setServicePopup} service={singleService} />}
         </>
     )
 }
