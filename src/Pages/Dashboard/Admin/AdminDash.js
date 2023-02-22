@@ -5,6 +5,7 @@ import { RiSecurePaymentFill } from "react-icons/ri";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { VscGitPullRequestCreate } from "react-icons/vsc";
 import { HiOutlinePhoneIncoming } from "react-icons/hi"
+import { RiServiceLine } from "react-icons/ri";
 import controller from '../../../Asset/control.png'
 import { dataContext } from "../../../App";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,7 +14,6 @@ import { useEffect } from "react";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import BkashAlert from "../../../Components/Shared/Popup/BkashAlert";
-import { constant_password } from "../../../Utils/Constant";
 import RocketAlert from "../../../Components/Shared/Popup/RocketAlert";
 import NagadAlert from "../../../Components/Shared/Popup/NagadAlert";
 import UpdateServicePopup from "../../../Components/Shared/Popup/UpdateServicePopup";
@@ -30,7 +30,7 @@ const AdminDash = () => {
         { title: "Manage Order", src: <RiSecurePaymentFill className="h-6 w-6" />, id: 3 },
         { title: "Create Notification", src: <VscGitPullRequestCreate className="h-6 w-6" />, id: 4 },
         { title: "Update Phone", src: <HiOutlinePhoneIncoming className="h-6 w-6" />, id: 5 },
-        { title: "Product List", src: <HiOutlinePhoneIncoming className="h-6 w-6" />, id: 6 },
+        { title: "Service List", src: <RiServiceLine className="h-6 w-6 text-white" />, id: 6 },
     ];
 
     return (

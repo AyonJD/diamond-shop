@@ -1,13 +1,12 @@
 import React from 'react';
 import { ImCross } from 'react-icons/im';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 
 const UpdateServicePopup = ({ setOpenPopup, service }) => {
     const { register, formState: { errors }, handleSubmit, trigger, reset } = useForm();
-    console.log(service)
 
     const onSubmit = (data) => {
-        // console.log(data)
 
         const packageToInsert = [
             { title: data.serviceOneName || service.package[0].title, price: data.serviceOnePrice || service.package[0].price },
@@ -23,7 +22,6 @@ const UpdateServicePopup = ({ setOpenPopup, service }) => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-
             },
             body: JSON.stringify(serviceToInsert)
         })
@@ -32,9 +30,12 @@ const UpdateServicePopup = ({ setOpenPopup, service }) => {
             .then(data => {
                 if (data) {
                     setOpenPopup(false)
+                    toast.success('Service Updated Successfully')
                     reset()
                 }
-            }).catch(err => console.log(err))
+            }).catch(err => {
+                toast.error('Something went wrong')
+            })
 
 
     }
