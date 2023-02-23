@@ -24,6 +24,7 @@ const AdminDash = () => {
     const [renderItem, setRenderItem] = useState(1);
     const { loggedInUser } = useContext(dataContext)
 
+    // Admin sidebar menu
     const Menus = [
         { title: "My Account", src: <HiOutlineUserCircle className="h-6 w-6" />, id: 1 },
         { title: "All User ", src: <AiOutlineUsergroupAdd className="h-6 w-6" />, id: 2 },
