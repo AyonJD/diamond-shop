@@ -402,7 +402,6 @@ const UpdatePhone = () => {
         getAllNumber()
     }, [])
 
-
     const handleBkashNumber = async (id) => {
         const res = await fetch(`https://firm-shoshanna-ayonjd.koyeb.app/api/v1/auth/number/${id}`, {
             method: 'PATCH',

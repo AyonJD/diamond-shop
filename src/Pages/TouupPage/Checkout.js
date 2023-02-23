@@ -9,9 +9,9 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
 const Checkout = () => {
-    const [bkashNumber, setBkashNumber] = useState('01920204818');
+    const [bkashNumber, setBkashNumber] = useState('01939274874');
     const [rocketNumber, setRocketNumber] = useState('01720208796');
-    const [nagadNumber, setNagadNumber] = useState('01520248718');
+    const [nagadNumber, setNagadNumber] = useState('01939274874');
     const invoiceId = useParams().id;
     const { orderId } = useParams();
     const navigate = useNavigate();
@@ -106,7 +106,8 @@ const Checkout = () => {
         const result = await response.json();
         if (result.success) {
             result?.result?.map(number => {
-                if (number.provider === '"Bkash"') {
+                console.log(number)
+                if (number.provider === 'Bkash') {
                     setBkashNumber(number.number);
                 } else if (number.provider === 'Rocket') {
                     setRocketNumber(number.number);
