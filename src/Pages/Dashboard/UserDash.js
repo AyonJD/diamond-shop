@@ -31,11 +31,6 @@ const UserDash = () => {
                         onClick={() => setOpen(!open)}
                     />
                     <div className="flex gap-x-4 items-center">
-                        {/* <img
-                        src="./src/assets/logo.png"
-                        className={`cursor-pointer duration-500 ${open && "rotate-[360deg]"
-                            }`}
-                    /> */}
                         <MdGraphicEq className={`cursor-pointer duration-500 text-white ${open && "rotate-[360deg]"
                             }`} />
                         <h1
