@@ -7,6 +7,7 @@ import { dataContext } from "../../App";
 import NavigationDropdown from "./NavigationDropdown";
 
 function Navigation() {
+  
   /* Close the drawer when the user clicks outside of it */
   const [openDrawer, toggleDrawer] = useState(false);
   const drawerRef = useRef(null);
