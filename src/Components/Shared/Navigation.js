@@ -7,7 +7,7 @@ import { dataContext } from "../../App";
 import NavigationDropdown from "./NavigationDropdown";
 
 function Navigation() {
-  
+
   /* Close the drawer when the user clicks outside of it */
   const [openDrawer, toggleDrawer] = useState(false);
   const drawerRef = useRef(null);
@@ -31,7 +31,7 @@ function Navigation() {
     setToken(null);
     localStorage.removeItem("access_token");
   };
-
+  // Navigation
   return (
     <Navbar.Wrapper className="">
       <div className="flex justify-between items-center mt-[-10px]">
@@ -83,7 +83,7 @@ function Navigation() {
       </div>
 
       <div className="flex items-start">
-        
+
         {/* Login Logout button */}
         <div onClick={() => {
           setNotificationPopup(true);
